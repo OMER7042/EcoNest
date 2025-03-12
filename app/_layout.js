@@ -26,7 +26,7 @@ const MainLayout = () => {
         // Pop from stack until one element is left
         router.back();
       }
-      router.replace("/onboarding");
+      router.replace("/map");
     }
   }, [isAuthenticated]);
 
@@ -116,7 +116,7 @@ const RootLayout = () => {
   }
   return (
     <PaperProvider theme={theme}>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
       <AuthProvider>
         <MainLayout />
       </AuthProvider>

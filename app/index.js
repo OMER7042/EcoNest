@@ -8,7 +8,6 @@ export default function Index() {
   return (
     <View
       style={{
-        backgroundColor: Colors.secondary,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -16,23 +15,22 @@ export default function Index() {
     >
       <Image
         source={LogoImg}
-        style={{ width: widthPercentageToDP(35), aspectRatio: 1 }}
+        style={{ width: widthPercentageToDP(70), aspectRatio: 1 }}
       />
 
       <View
         style={{
           position: "absolute",
-          bottom: 20,
+          bottom: 24,
         }}
       >
         <RNText
           style={{
             color: Colors.primary,
             textAlign: "center",
-            fontSize: 21,
-            lineHeight: 28,
+            fontSize: 25,
           }}
-          font={"M-Bold"}
+          font={"M-Medium"}
         >
           crafted by
         </RNText>
@@ -40,9 +38,7 @@ export default function Index() {
           style={{
             color: Colors.primary,
             textAlign: "center",
-            fontSize: 17.5,
-            lineHeight: 24.5,
-            textAlign: "center",
+            fontSize: 20,
           }}
           font={"M-Bold"}
         >

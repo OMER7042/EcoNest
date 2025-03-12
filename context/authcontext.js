@@ -40,6 +40,20 @@ export const AuthProvider = ({ children }) => {
   // }, []);
 
   // Listen for user authentication changes
+
+  // const [user, setUser] = useState({
+  //   id: "1",
+  //   email: "sumanthale@gmail.com",
+  //   name: "Sumanth",
+  //   username: "sumanthale",
+  //   profileUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+  //   points: 0,
+  //   actions: 0,
+  //   saved: 0,
+  //   dailyTask:null,
+
+  // });
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -94,13 +108,17 @@ export const AuthProvider = ({ children }) => {
         id: response?.user.uid,
         profileUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       });
-      
+
       await setDoc(doc(db, "users", response?.user.uid), {
         email: response?.user.email,
         name,
         username: email.split("@")[0],
         id: response?.user.uid,
         profileUrl: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+        points: 0,
+        actions: 0,
+        saved: 0,
+        dailyTask: "",
       });
       return { success: true, user: response?.user };
     } catch (e) {

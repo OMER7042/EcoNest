@@ -30,20 +30,21 @@
 
 
 export default {
-  primary: "#2E7D32", // Forest Green - Represents sustainability & growth  
+  primary: "#25cf7a", // Forest Green - Represents sustainability & growth  
   secondary: "#A5D6A7", // Soft Leaf Green - Vibrancy & freshness  
   muted: "#3A5A92", // Deep Ocean Blue - A calm, trustworthy accent  
   background: "#FFF8E1", // Soft Beige - Clean, natural background  
-  gray: "#6E6E73", // Neutral Gray - Balancing element  
+  gray: "#737582", // Neutral Gray - Balancing element  
   extraLightGray: "#F2F2F7", // Mist Gray - Subtle contrast  
   lightGray: "#DCDCE2", // Stone Gray - Soft UI elements  
   mediumGray: "#A3A3A3", // Rock Gray - Text & icons  
   lightGreen: "#C8E6C9", // Pastel Green - Friendly & inviting  
   main: "#81D4FA", // Sky Blue - Airy, fresh feel  
   red: "#F95A2C", // Coral Red - Warning/alert elements  
-  green: "#00C853", // Bright Green - Calls to action & success  
+  green: "#25cf7a", // Bright Green - Calls to action & success  
   yellow: "#FDD835", // Sunlight Yellow - Energy & positivity  
   black: "#18191F", // Deep Black - Strong contrast  
   pink: "#FF89BB", // Soft Blossom - Optional accent  
-  blue: "#0277BD", // Deep Blue - Trust & depth  
+  blue: "#0277BD", // Deep Blue - Trust & depth  ,
+  lightGreen:'#cdf324'
 };

@@ -72,7 +72,7 @@ const SignIn = () => {
           />
 
           <RNText
-            font={"Poppins-SemiBold"}
+            font={"M-SemiBold"}
             style={{
               fontSize: 31.5,
               lineHeight: 35,

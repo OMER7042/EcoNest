@@ -12,7 +12,7 @@ export default function TabsLayout() {
     <>
       <Tabs
         screenOptions={{
-          tabBarStyle: { backgroundColor: Colors.primary },
+          tabBarStyle: { backgroundColor: "#fff" },
           tabBarActiveTintColor: Colors.primary,
           tabBarInactiveBackgroundColor: Colors.primary,
           tabBarActiveBackgroundColor: Colors.background,
@@ -20,7 +20,7 @@ export default function TabsLayout() {
             backgroundColor: Colors.background,
           },
           tabBarItemStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: "#fff",
             color: Colors.primary,
           },
           tabBarLabelStyle: {

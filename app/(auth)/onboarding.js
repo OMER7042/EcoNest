@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import RNText from "../../components/RNText";
 import Colors from "../../constants/Colors";
 import { useVideoPlayer, VideoView } from "expo-video";
+import { StatusBar } from "expo-status-bar";
 
 const Onboarding = () => {
   const router = useRouter();
@@ -32,14 +33,10 @@ const Onboarding = () => {
       <View
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 99,
+          zIndex: 1,
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
+          justifyContent: "center",
           height: hp(100),
           width: wp(100),
         }}
@@ -49,7 +46,7 @@ const Onboarding = () => {
           style={{
             fontSize: 44,
             textAlign: "center",
-            color: "#fff",
+            color: "#fff",      
           }}
         >
           EcoNest
@@ -62,7 +59,7 @@ const Onboarding = () => {
             color: "#fff",
             textAlign: "center",
             position: "absolute",
-            bottom: 15,
+            bottom: hp(10),
           }}
         >
           Tap to Continue
@@ -82,8 +79,8 @@ const Onboarding = () => {
 export default Onboarding;
 const styles = StyleSheet.create({
   video: {
-    width: widthPercentageToDP(113),
-    height: heightPercentageToDP(113),
+    width: widthPercentageToDP(120),
+    height: '100%',
     resizeMode: "contain",
   },
 });
