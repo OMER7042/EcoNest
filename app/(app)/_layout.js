@@ -1,7 +1,5 @@
 import React from "react";
-import { Stack, router, useRouter, useSegments } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-// import SafeArea from "../components/SafeArea";
+import { Stack } from "expo-router";
 
 export default AppLayout = () => {
   return (
@@ -15,12 +13,16 @@ export default AppLayout = () => {
       <Stack.Screen
         name="contact"
         options={{
-          headerTitle: "Contact Us",
-          title: "Contact Us",
           headerTitleStyle: {
             fontFamily: "M-ExtraBold",
             fontSize: 36,
           },
+        }}
+      />
+      <Stack.Screen
+        name="action"
+        options={{
+          headerShown: false,
         }}
       />
     </Stack>

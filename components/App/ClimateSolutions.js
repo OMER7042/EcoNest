@@ -13,7 +13,7 @@ const ClimateSolutions = () => {
       img: "https://images.ctfassets.net/zr62mq1hhu5q/5EnyhUA8OzJ3tNYOuv794b/aa4ad6b8f9c02c58f34d9f0c5ed9c3a5/nebelwald-panama_34286907974_o.jpeg?fm=jpg&w=1400&h=980&q=85&fit=fill",
       title: "Tree Planting",
       description:
-        "Trees effectively absorb CO2 in the atmosphere and release oxygen back for us to breathe.",
+        "Trees effectively absorb CO₂ in the atmosphere and release oxygen back for us to breathe.",
     },
     {
       id: 2,
@@ -56,7 +56,7 @@ const ClimateSolutions = () => {
       img: "https://climatetransform.com/wp-content/uploads/2021/03/industrial-logging-photo.jpg",
       title: "Deforestation Prevention",
       description:
-        "Deforestation prevention supports local communities and protects wildlife, while ensuring trees keep standing.",
+        "It supports local communities and protects wildlife, while ensuring trees keep standing.",
     },
   ];
   return (

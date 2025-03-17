@@ -1,8 +1,9 @@
-import { Platform, Pressable, View } from "react-native";
+import { Platform, Pressable, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP,
 } from "react-native-responsive-screen";
 
 import { Image } from "expo-image";
@@ -13,6 +14,7 @@ import LogoImg from "../assets/app/logo.png";
 import RNText from "./RNText";
 import Colors from "../constants/Colors";
 import { ECO_IMG_URL, POINTS_IMG_URL } from "../constants/constants";
+import { router } from "expo-router";
 
 const HomeHeader = () => {
   const { user } = useContext(AuthContext);
@@ -22,11 +24,14 @@ const HomeHeader = () => {
       style={{
         flexDirection: "row",
         alignItems: "center",
+        paddingHorizontal: 10,
+        borderBottomColor:Colors.lightGray,
+        borderBottomWidth:2,
       }}
     >
-      <View>
-        <Image source={LogoImg} style={{ height: hp(8), aspectRatio: 1 }} />
-      </View>
+      <TouchableOpacity onPress={() => router.push("/home")}>
+        <Image  source={LogoImg} style={{ height: hp(8), aspectRatio: 1 }} />
+      </TouchableOpacity>
       <View
         style={{
           borderRadius: 20,
@@ -46,7 +51,7 @@ const HomeHeader = () => {
         </RNText>
         <Image
           source={POINTS_IMG_URL}
-          style={{ height: 20, aspectRatio: 1, color:'green' }}
+          style={{ height: 20, aspectRatio: 1, color: "green" }}
         />
       </View>
 
@@ -66,10 +71,7 @@ const HomeHeader = () => {
         <RNText font={"M-Bold"} style={{ fontSize: 12 }}>
           2.3
         </RNText>
-        <Image
-          source={ECO_IMG_URL}
-          style={{ height: 20, aspectRatio: 1 }}
-        />
+        <Image source={ECO_IMG_URL} style={{ height: 20, aspectRatio: 1 }} />
       </View>
 
       <Pressable

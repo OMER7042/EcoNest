@@ -13,9 +13,29 @@ const Insights = () => {
     {
       id: 2,
     },
+    {
+      id: 3,
+      url:'4b8x4rKiAhE'
+    },
+    {
+      id: 4,
+      url:'KdiA12KeSL0'
+    },
+    {
+      id: 5,
+      url:'8q7_aV8eLUE'
+    },
+    {
+      id: 6,
+      url:'z7yDjWqAW2w'
+    },
+    {
+      id: 7,
+      url:'NBW8f4N0ALw'
+    }
   ];
   return (
-    <View
+    <View 
       style={{
         marginTop: 10,
         marginBottom: 10,
@@ -30,7 +50,7 @@ const Insights = () => {
         }}
         font={"M-SemiBold"}
       >
-        Daily Insights
+      EcoSmart Tips & Guides ♻️
       </RNText>
 
       <FlatList
@@ -38,7 +58,6 @@ const Insights = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
-        snapToInterval={widthPercentageToDP(100)}
         renderItem={({ item }) => {
           return <DailyInsights item={item} />;
         }}

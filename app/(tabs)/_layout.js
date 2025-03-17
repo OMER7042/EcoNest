@@ -1,9 +1,9 @@
 import {
-  FontAwesome5,
-  Ionicons,
+  Feather,
+  Foundation,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { Tabs, router } from "expo-router";
+import { Tabs } from "expo-router";
 import Colors from "../../constants/Colors";
 import { Entypo } from "@expo/vector-icons";
 
@@ -29,26 +29,28 @@ export default function TabsLayout() {
           },
           headerShadowVisible: false,
           // tabBarShowLabel: false,
-          tabBarActiveTintColor: Colors.yellow,
+          tabBarActiveTintColor: Colors.green,
         }}
       >
         <Tabs.Screen
-          name="map"
+          name="home"
           options={{
             headerTitle: "Home",
             headerShown: false,
             title: "Home",
 
             tabBarIcon: ({ size, color }) => (
-              <Entypo name="map" size={size} color={color} />
+              <Entypo name="home" size={size} color={color} />
             ),
           }}
         />
-        {/* <Tabs.Screen
-          name="friends"
+        <Tabs.Screen
+          name="actions"
           options={{
-            headerTitle: "Friends",
-            title: "Friends",
+            headerTitle: "Actions",
+            headerShown: false,
+
+            title: "Actions",
             headerTitleStyle: {
               fontFamily: "M-ExtraBold",
               fontSize: 36,
@@ -58,35 +60,34 @@ export default function TabsLayout() {
             },
 
             tabBarIcon: ({ size, color }) => (
-              <Ionicons name="people-outline" size={size + 4} color={color} />
+              <Foundation name="foot" size={size + 4} color={color} />
             ),
           }}
         />
         <Tabs.Screen
-          name="messages"
+          name="challenges"
           options={{
-            headerTitle: "Chat",
-            title: "Chat",
+            headerTitle: "Challenges",
+            title: "Challenges",
             headerTitleStyle: {
               fontFamily: "M-ExtraBold",
               fontSize: 36,
             },
             tabBarIcon: ({ size, color }) => (
-              <Entypo name="chat" size={size} color={color} />
+              <Feather name="target" size={size} color={color} />
             ),
           }}
         />
 
         <Tabs.Screen
-          name="rooms"
+          name="organization"
           options={{
-            headerTitle: "Rooms",
-            title: "Rooms",
+            headerTitle: "Organization",
+            title: "Organization",
             headerTitleStyle: {
               fontFamily: "M-ExtraBold",
               fontSize: 36,
             },
-            // add icon at the right side of the header
 
             tabBarIcon: ({ size, color }) => (
               <MaterialCommunityIcons
@@ -97,35 +98,6 @@ export default function TabsLayout() {
             ),
           }}
         />
-
-        <Tabs.Screen
-          name="menu"
-          options={{
-            headerTitle: "Menu",
-            title: "Menu",
-            headerTitleStyle: {
-              fontFamily: "M-ExtraBold",
-              fontSize: 36,
-            },
-
-            headerRight: () => (
-              <MaterialCommunityIcons
-                name="close"
-                size={24}
-                style={{
-                  marginRight: 20,
-                }}
-                color="black"
-                onPress={() => {
-                  router.replace("/map");
-                }}
-              />
-            ),
-            tabBarIcon: ({ size, color }) => (
-              <FontAwesome5 name="user-circle" size={size + 3} color={color} />
-            ),
-          }}
-        /> */}
       </Tabs>
     </>
   );

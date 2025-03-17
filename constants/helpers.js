@@ -11,12 +11,12 @@ export const goToMaps = ({ latitude, longitude }) => {
 
   Linking.openURL(url);
 };
-export function calculateTreesPlanted(co2Kg) {
-  // On average, one mature tree absorbs about 21.77 kg of CO2 per year
-  const co2AbsorptionPerTree = 21.77 /12; 
+export function calculateTreesPlanted(COKg) {
+  // On average, one mature tree absorbs about 21.77 kg of CO₂ per year
+  const COAbsorptionPerTree = 21.77 /12; 
   
   // Calculate the number of trees required
-  const treesPlanted = co2Kg / co2AbsorptionPerTree;
+  const treesPlanted = COKg / COAbsorptionPerTree;
   
   return Math.round(treesPlanted); // Rounding to nearest whole number
 }

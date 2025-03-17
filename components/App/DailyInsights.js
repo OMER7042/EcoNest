@@ -79,7 +79,7 @@ const DailyInsights = ({ item }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: Colors.green,
+              backgroundColor: "#fff",
               padding: 10,
               width: "100%",
               borderRadius: 6,
@@ -87,13 +87,13 @@ const DailyInsights = ({ item }) => {
             onPress={() => setCount((count) => (count + 1) % 31)}
           >
             <RNText font={"M-Medium"} style={{ fontSize: 16, color: "#000" }}>
-              Refresh 🌍
+            New Tip 🪴
             </RNText>
           </TouchableOpacity>
         </View>
       </View>
     );
-  } else if (ID === 3)
+  } else if (ID === 2)
     return (
       <View
         style={{
@@ -164,13 +164,14 @@ const DailyInsights = ({ item }) => {
         width: widthPercentageToDP(90),
         alignItems: "center",
         justifyContent: "center",
+        marginLeft: 10,
  
       }}
     >
       <View
         style={{
           width: "100%",
-          height: "70%",
+          height: "80%",
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: Colors.blue,
@@ -182,9 +183,8 @@ const DailyInsights = ({ item }) => {
           height={"100%"}
           width={"100%"}
           play={false}
-          
 
-          videoId={"CDftAXyJHl8"}
+          videoId={item.url}
         />
       </View>
     </View>

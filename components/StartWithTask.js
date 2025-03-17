@@ -382,7 +382,7 @@ const StartWithTask = ({ item }) => {
                       font={"M-Bold"}
                       style={{ fontSize: hp(1.4), color: "#fff" }}
                     >
-                      kg CO2 Saved
+                      kg CO₂ Saved
                     </RNText>
                   </View>
                   <View
@@ -468,7 +468,7 @@ const StartWithTask = ({ item }) => {
                     font={"M-Bold"}
                     style={{ fontSize: 16, color: "#fff" }}
                   >
-                    {dailyTask.footprint} kg CO2
+                    {dailyTask.footprint} kg CO₂
                   </RNText>
                 </View>
               </View>

@@ -59,7 +59,7 @@ const Personal = () => {
           </View>
 
           <RNText font={"M-Medium"} style={{ fontSize: 20, color: "#fff" }}>
-            Save 1,512 Kg CO2
+            Save 1,512 Kg CO₂
           </RNText>
         </View>
 
@@ -94,7 +94,7 @@ const Personal = () => {
             radius={90}
             progressValueColor={"#ecf0f1"}
             maxValue={1512}
-            title={"kg CO2eq"}
+            title={"kg CO₂eq"}
             titleColor={"white"}
             titleStyle={{ fontWeight: "bold" }}
             subtitle="You Saved"
@@ -115,7 +115,7 @@ const Personal = () => {
             marginVertical: 16,
           }}
         >
-          Yay! Your CO2 savings are equal what
+          Yay! Your CO₂ savings are equal what
           <RNText font={"M-Bold"} style={{ color: Colors.green }}>
             {" "}
             {

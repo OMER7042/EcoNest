@@ -38,7 +38,7 @@ export default {
   extraLightGray: "#F2F2F7", // Mist Gray - Subtle contrast  
   lightGray: "#DCDCE2", // Stone Gray - Soft UI elements  
   mediumGray: "#A3A3A3", // Rock Gray - Text & icons  
-  lightGreen: "#C8E6C9", // Pastel Green - Friendly & inviting  
+  lightGreen: "#ebfcf3", // Pastel Green - Friendly & inviting  
   main: "#81D4FA", // Sky Blue - Airy, fresh feel  
   red: "#F95A2C", // Coral Red - Warning/alert elements  
   green: "#25cf7a", // Bright Green - Calls to action & success  
@@ -46,5 +46,8 @@ export default {
   black: "#18191F", // Deep Black - Strong contrast  
   pink: "#FF89BB", // Soft Blossom - Optional accent  
   blue: "#0277BD", // Deep Blue - Trust & depth  ,
-  lightGreen:'#cdf324'
+  lightGreen:'#cdf324',
+  purple:"#BE9FE1",
+  white:"#fff",
+  lightBlue:"#B3E5FC",
 };

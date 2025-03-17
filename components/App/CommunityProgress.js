@@ -52,7 +52,7 @@ const CommunityProgress = () => {
             radius={90}
             progressValueColor={"#ecf0f1"}
             maxValue={1512}
-            title={"kg CO2eq"}
+            title={"kg CO₂eq"}
             titleColor={"white"}
             titleStyle={{ fontWeight: "bold" }}
             subtitle="You Saved"
@@ -73,7 +73,7 @@ const CommunityProgress = () => {
             marginVertical: 16,
           }}
         >
-          Yay! Your CO2 savings are equal what
+          Yay! Your CO₂ savings are equal what
           <RNText font={"M-Bold"} style={{ color: Colors.green }}>
             {" "}
             {calculateTreesPlanted(5.6)}{" "}
@@ -103,7 +103,7 @@ const CommunityProgress = () => {
           <RNText font={"M-Bold"} style={{ color: "#000" }}>
             Target : Save
           </RNText>{" "}
-          6,000 kg CO2eq
+          6,000 kg CO₂eq
         </RNText>
       </View>
     </View>
