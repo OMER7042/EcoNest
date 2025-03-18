@@ -67,6 +67,7 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="challenges"
           options={{
+            headerShown: false,
             headerTitle: "Challenges",
             title: "Challenges",
             headerTitleStyle: {

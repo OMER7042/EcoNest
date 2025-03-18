@@ -26,7 +26,7 @@ const MainLayout = () => {
         // Pop from stack until one element is left
         router.back();
       }
-      router.replace("/home");
+      router.replace("/onboarding");
     }
   }, [isAuthenticated]);
 

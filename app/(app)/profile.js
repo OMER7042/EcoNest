@@ -89,94 +89,7 @@ const Profile = () => {
       ]);
     }
   };
-  if (newUserExtract)
-    return (
-      <View
-        style={{
-          paddingTop: ios ? top : top + 10,
-          paddingHorizontal: 20,
-          flex: 1,
-        }}
-      >
-        <Pressable
-          onPress={handleClose}
-          style={{
-            alignSelf: "flex-end",
-          }}
-        >
-          <MaterialCommunityIcons name="close" size={30} color="black" />
-        </Pressable>
-        <RNText
-          style={{
-            textTransform: "capitalize",
-            marginTop: 7,
-            marginBottom: 7,
-
-            textAlign: "center",
-          }}
-          font={"M-Medium"}
-        >
-          {friend.split(" ")[0]} Proflie Details
-        </RNText>
-        <View
-          style={{
-            marginTop: 14,
-            marginBottom: 14,
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            style={{
-              height: hp(20),
-              aspectRatio: 1,
-              borderRadius: 4,
-            }}
-            source={profileUrlU}
-            placeholder={blurhash}
-            transition={500}
-          />
-        </View>
-
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <List.Section
-            style={{
-              width: widthPercentageToDP(70),
-            }}
-          >
-            <List.Item
-              title="Full Name"
-              description={friend}
-              descriptionStyle={{
-                textTransform: "capitalize",
-              }}
-              left={() => <List.Icon icon="account" />}
-            />
-            <List.Item
-              title="Gender"
-              description={friendGender || "Not Available"}
-              left={() => <List.Icon icon="gender-male-female" />}
-            />
-            <List.Item
-              title="Department"
-              description={friendPhone || "No Department Available"}
-              left={() => <List.Icon icon="office-building" />}
-            />
-            <List.Item
-              title="About"
-              description={friendBio || "No bio available"}
-              left={() => <List.Icon icon="information" />}
-            />
-          </List.Section>
-        </View>
-      </View>
-    );
-  else {
+ 
     return (
       <CustomKeyboardView>
         <View
@@ -210,7 +123,7 @@ const Profile = () => {
             {user?.email}
           </RNText>
 
-          {updateImage === false ? (
+          {/* {updateImage === false ? (
             <>
               <View
                 style={{
@@ -419,11 +332,10 @@ const Profile = () => {
                 </Pressable>
               )}
             </View>
-          </View>
+          </View> */}
         </View>
       </CustomKeyboardView>
     );
-  }
 };
 
 export default Profile;

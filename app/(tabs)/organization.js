@@ -14,47 +14,17 @@ const Organization = () => {
         gap: 8,
       }}
     >
-      <RNText
-        style={{
-          fontSize: 36,
-          textAlign: "center",
-        }}
-        onPress={() => {
-          router.push("/profile");
-        }}
-        font={"M-Black"}
-      >
-        Profile
-      </RNText>
 
-      <RNText
-        style={{
-          fontSize: 36,
-          color: Colors.red,
-          textAlign: "center",
-        }}
-        onPress={() => {
-          router.push("/contact");
-        }}
-        font={"M-Black"}
-      >
-        Contact Us
-      </RNText>
-      <RNText
-        style={{
-          fontSize: 36,
-          color: Colors.green,
-          textAlign: "center",
-        }}
-        onPress={() => {
-          // router.push("/contact");
-          // navigat user to https://sites.google.com/view/utaconnect/home this link on the web browser
-          Linking.openURL("https://sites.google.com/view/utaconnect/home");
-        }}
-        font={"M-Black"}
-      >
-        Privacy Policy
-      </RNText>
+        <RNText
+          font={"M-Bold"}
+          style={{
+            fontSize: 24,
+            color: Colors.primary,
+            textAlign: "center",
+          }}
+        >
+          Organization
+        </RNText>
     </View>
   );
 };
