@@ -1,12 +1,13 @@
 import React from "react";
 import RNText from "../../components/RNText";
 import MinimalLayout from "../../components/Layout/MinimalLayout";
-import { Divider, List } from "react-native-paper";
+import { Divider, List, useTheme } from "react-native-paper";
 import { Image } from "expo-image";
 import LogoImg from "../../assets/app/logo.png";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { router } from "expo-router";
 const Actions = () => {
+  const {colors} = useTheme();
   const actions = [
     {
       title: "Travel",
@@ -39,7 +40,7 @@ const Actions = () => {
   ];
   return (
     <MinimalLayout showHeader>
-      <RNText style={{ fontSize: 22, padding: 10 }} font={"M-Bold"}>
+      <RNText style={{ fontSize: 22, padding: 10, color: colors.text }} font={"M-Bold"}>
         {/* Choose a catogory to take action on [emoji] */}
         Choose a catogory to take your next action!
       </RNText>
@@ -53,7 +54,7 @@ const Actions = () => {
             key={action.title}
             title={action.title}
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: colors.card,
               borderRadius: 20,
               padding: 10,
             }}
@@ -82,7 +83,7 @@ const Actions = () => {
             )}
             // on the right add arrow icon
 
-            right={() => <List.Icon color={"#000"} icon="chevron-right" />}
+            right={() => <List.Icon color={colors.text} icon="chevron-right" />}
           />
         ))}
       </List.Section>

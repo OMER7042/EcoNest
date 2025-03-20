@@ -15,7 +15,7 @@ const CommunityProgress = () => {
     >
       <View
         style={{
-          backgroundColor: "#111",
+          backgroundColor: "#222",
           width: "auto",
           flexDirection: "column",
           justifyContent: "center",

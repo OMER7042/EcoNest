@@ -1,17 +1,20 @@
 import { View, Platform, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import HomeHeader from "../HomeHeader";
+import { useTheme } from "react-native-paper";
 
 const ios = Platform.OS === "ios";
 
 const MinimalLayout = ({ children, showHeader }) => {
   const { top } = useSafeAreaInsets();
-
+  const {colors} = useTheme()
   return (
     <View
       style={{
         paddingTop: ios ? top : top,
         flex: 1,
+        backgroundColor: colors.background,
+
       }}
     >
       {showHeader && <HomeHeader />}

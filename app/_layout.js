@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Slot, Stack, useRouter } from "expo-router";
 import { AuthProvider, useAuth } from "../context/authcontext";
 import { useFonts } from "expo-font";
@@ -7,6 +7,8 @@ import {
   PaperProvider,
 } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "react-native";
+import { darkTheme, lightTheme } from "../constants/theme";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -26,7 +28,7 @@ const MainLayout = () => {
         // Pop from stack until one element is left
         router.back();
       }
-      router.replace("/onboarding");
+      router.replace("/home");
     }
   }, [isAuthenticated]);
 
@@ -44,7 +46,7 @@ const MainLayout = () => {
           headerShown: false,
         }}
       />
-     
+
       <Stack.Screen
         name="(auth)/signin"
         options={{
@@ -81,15 +83,6 @@ const MainLayout = () => {
 };
 
 const RootLayout = () => {
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: "#007AFF",
-      secondary: "yellow",
-    },
-  };
-
   const [fontsLoaded, fontError] = useFonts({
     "Poppins-Regular": require("../assets/fonts/Poppins/Poppins-Regular.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins/Poppins-Bold.ttf"),
@@ -110,18 +103,29 @@ const RootLayout = () => {
     "M-Thin": require("../assets/fonts/Montserrat/Montserrat-Thin.ttf"),
     "M-Black": require("../assets/fonts/Montserrat/Montserrat-Black.ttf"),
   });
-
+  // const colorScheme = "light" // Detect system theme
+  // const [theme, setTheme] = useState(
+  //   colorScheme === "dark" ? darkTheme : lightTheme
+  // );
   if (!fontsLoaded && !fontError) {
     return null;
   }
   return (
-    <PaperProvider theme={theme}>
-      <StatusBar style="dark" />
-      <AuthProvider>
-        <MainLayout />
-      </AuthProvider>
-    </PaperProvider>
+    <AuthProvider>
+      <Layout />
+    </AuthProvider>
   );
 };
 
 export default RootLayout;
+
+const Layout = () => {
+  const { theme, isDarkMode } = useAuth();
+
+  return (
+    <PaperProvider theme={theme}>
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
+      <MainLayout />
+    </PaperProvider>
+  );
+};

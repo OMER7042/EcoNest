@@ -4,21 +4,24 @@ import Personal from "./Personal";
 import RNText from "../RNText";
 import Colors from "../../constants/Colors";
 import CommunityProgress from "./CommunityProgress";
+import { useTheme } from "react-native-paper";
 
 const EcoProgress = () => {
   const [isStory, setIsStory] = useState(true);
+
+  const { colors } = useTheme();
 
   return (
     <View>
       <View
         style={{
           justifyContent: "space-evenly",
-          backgroundColor: "#fff",
+          backgroundColor: colors.background,
           alignItems: "center",
           marginTop: 20,
           borderRadius: 50,
           flexDirection: "row",
-          borderColor: Colors.green,
+          borderColor: colors.green,
           borderWidth: 2,
           padding: 5,
         }}
@@ -26,8 +29,8 @@ const EcoProgress = () => {
         <RNText
           style={{
             flex: 1,
-            backgroundColor: isStory ? Colors.primary : "#fff",
-            color: isStory ? "#fff" : Colors.primary,
+            backgroundColor: isStory ? colors.primary : colors.background,
+            color: isStory ? colors.text : colors.primary,
             padding: 8,
             paddingHorizontal: 10,
             borderRadius: 20,
@@ -41,8 +44,8 @@ const EcoProgress = () => {
         <RNText
           style={{
             flex: 1,
-            backgroundColor: isStory ? "#fff" : Colors.primary,
-            color: isStory ? Colors.primary : "#fff",
+            backgroundColor: isStory ? colors.background : Colors.primary,
+            color: isStory ? Colors.primary : colors.text,
             padding: 8,
             paddingHorizontal: 10,
             borderRadius: 20,
@@ -55,11 +58,7 @@ const EcoProgress = () => {
         </RNText>
       </View>
 
-      {isStory ? (
-        <Personal />
-      ) : (
-        <CommunityProgress/>
-      )}
+      {isStory ? <Personal /> : <CommunityProgress />}
     </View>
   );
 };

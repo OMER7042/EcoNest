@@ -4,24 +4,25 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import Colors from "../../constants/Colors";
 import { Entypo } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 
 export default function TabsLayout() {
+  const { colors } = useTheme();
   return (
     <>
       <Tabs
         screenOptions={{
-          tabBarStyle: { backgroundColor: "#fff" },
-          tabBarActiveTintColor: Colors.primary,
-          tabBarInactiveBackgroundColor: Colors.primary,
-          tabBarActiveBackgroundColor: Colors.background,
+          tabBarStyle: { backgroundColor: colors.background},
+          tabBarActiveTintColor: colors.primary,
+          tabBarInactiveBackgroundColor: colors.primary,
+          tabBarActiveBackgroundColor: colors.background,
           headerStyle: {
-            backgroundColor: Colors.background,
+            backgroundColor: colors.background,
           },
           tabBarItemStyle: {
             backgroundColor: "#fff",
-            color: Colors.primary,
+            color: colors.primary,
           },
           tabBarLabelStyle: {
             fontFamily: "M-ExtraBold",
@@ -29,7 +30,7 @@ export default function TabsLayout() {
           },
           headerShadowVisible: false,
           // tabBarShowLabel: false,
-          tabBarActiveTintColor: Colors.green,
+          tabBarActiveTintColor: colors.green,
         }}
       >
         <Tabs.Screen
@@ -54,9 +55,6 @@ export default function TabsLayout() {
             headerTitleStyle: {
               fontFamily: "M-ExtraBold",
               fontSize: 36,
-            },
-            headerStyle: {
-              backgroundColor: Colors.yellow,
             },
 
             tabBarIcon: ({ size, color }) => (

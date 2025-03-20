@@ -8,8 +8,10 @@ import { StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import RNText from "../RNText";
 import Colors from "../../constants/Colors";
+import { useTheme } from "react-native-paper";
 
 const Solution = ({ item }) => {
+  const { colors } = useTheme();
   return (
     <View
       style={{
@@ -21,7 +23,7 @@ const Solution = ({ item }) => {
         marginRight: 10,
         //shadow effect
         shadowColor: "#000",
-        backgroundColor: "#fff",
+        backgroundColor: colors.card,
         shadowOffset: {
           width: 0,
           height: 2,
@@ -46,6 +48,7 @@ const Solution = ({ item }) => {
           font={"M-Bold"}
           style={{
             fontSize: 21,
+            color: colors.text,
           }}
         >
           {item.title}
@@ -55,7 +58,7 @@ const Solution = ({ item }) => {
           style={{
             fontSize: 15,
             marginTop: 10,
-            color:Colors.gray
+            color:colors.gray
           }}
         >
           {item.description}

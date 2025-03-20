@@ -17,6 +17,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import { darkTheme, lightTheme } from "../constants/theme";
 
 export const AuthContext = createContext();
 
@@ -24,6 +25,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [rides, setRides] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const toggleTheme = () => setIsDarkMode((prev) => !prev);
 
   const [location, setLocation] = useState(null);
   // useEffect(() => {
@@ -182,6 +185,9 @@ export const AuthProvider = ({ children }) => {
     resetPassword,
     location,
     rides,
+    isDarkMode,
+    toggleTheme,
+    theme: isDarkMode ? darkTheme : lightTheme,
   };
 
   return (

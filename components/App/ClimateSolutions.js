@@ -5,8 +5,10 @@ import { FlatList } from "react-native";
 import DailyInsights from "./DailyInsights";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import Solution from "./Solution";
+import { useTheme } from "react-native-paper";
 
 const ClimateSolutions = () => {
+  const { colors } = useTheme();
   const solutions = [
     {
       id: 1,
@@ -72,6 +74,7 @@ const ClimateSolutions = () => {
           marginBottom: 20,
           marginLeft: 10,
           fontSize: 20,
+          color: colors.text,
         }}
         font={"M-SemiBold"}
       >

@@ -25,6 +25,12 @@ export default AppLayout = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="challenge"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 };

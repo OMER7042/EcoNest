@@ -13,7 +13,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import RNText from "../../components/RNText";
-import { calculateTreesPlanted } from "../../constants/helpers";
 import { Chip, Divider, SegmentedButtons, TextInput } from "react-native-paper";
 import { FlatList } from "react-native";
 import {
@@ -28,7 +27,6 @@ import {
   TRAVEL_DATA,
   WASTE_DATA,
 } from "../../constants/constants";
-import RNTextInput from "../../components/RNTextInput";
 import Slider from "@react-native-community/slider";
 
 import Loading from "../../components/Loading";
@@ -446,7 +444,7 @@ const Action = () => {
                   textAlign: "center",
                 }}
               >
-                Composted
+                {WASTE_DATA[wasteType - 1].info}
               </RNText>
             </View>
             <View

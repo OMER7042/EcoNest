@@ -1,9 +1,8 @@
-import { Platform, Pressable, Touchable, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-  widthPercentageToDP,
 } from "react-native-responsive-screen";
 
 import { Image } from "expo-image";
@@ -12,12 +11,12 @@ import { useRouter } from "expo-router";
 import { AuthContext } from "../context/authcontext";
 import LogoImg from "../assets/app/logo.png";
 import RNText from "./RNText";
-import Colors from "../constants/Colors";
 import { ECO_IMG_URL, POINTS_IMG_URL } from "../constants/constants";
-import { router } from "expo-router";
+import { Chip, useTheme } from "react-native-paper";
 
 const HomeHeader = () => {
-  const { user } = useContext(AuthContext);
+  const { user, toggleTheme } = useContext(AuthContext);
+  const { colors } = useTheme();
   const router = useRouter();
   return (
     <View
@@ -25,18 +24,22 @@ const HomeHeader = () => {
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 10,
-        borderBottomColor:Colors.lightGray,
-        borderBottomWidth:2,
+        borderBottomColor: colors.border,
+        borderBottomWidth: 2,
       }}
     >
       <TouchableOpacity onPress={() => router.push("/home")}>
-        <Image  source={LogoImg} style={{ height: hp(8), aspectRatio: 1 }} />
+        <Image source={LogoImg} style={{ height: hp(8), aspectRatio: 1 }} />
       </TouchableOpacity>
+
+      <Chip style={{ marginLeft: 10 }} onPress={toggleTheme}>
+        Toggle
+      </Chip>
       <View
         style={{
           borderRadius: 20,
           borderWidth: 2.5,
-          borderColor: Colors.green,
+          borderColor: colors.green,
           padding: 2,
           paddingHorizontal: 10,
           flexDirection: "row",
@@ -46,7 +49,7 @@ const HomeHeader = () => {
           marginRight: 10,
         }}
       >
-        <RNText font={"M-Bold"} style={{ fontSize: 12 }}>
+        <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
           100
         </RNText>
         <Image
@@ -59,7 +62,7 @@ const HomeHeader = () => {
         style={{
           borderRadius: 20,
           borderWidth: 2,
-          borderColor: Colors.green,
+          borderColor: colors.green,
           padding: 2.5,
           paddingHorizontal: 10,
           flexDirection: "row",
@@ -68,7 +71,7 @@ const HomeHeader = () => {
           marginRight: 10,
         }}
       >
-        <RNText font={"M-Bold"} style={{ fontSize: 12 }}>
+        <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
           2.3
         </RNText>
         <Image source={ECO_IMG_URL} style={{ height: 20, aspectRatio: 1 }} />

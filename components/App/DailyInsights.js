@@ -4,11 +4,13 @@ import { StyleSheet } from "react-native";
 import RNText from "../RNText";
 import Colors from "../../constants/Colors";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { Entypo, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { getDailyTip, getWeeklyTip } from "../../constants/constants";
 import { widthPercentageToDP } from "react-native-responsive-screen";
+import { useTheme } from "react-native-paper";
 
 const DailyInsights = ({ item }) => {
+  const { colors } = useTheme();
   const [count, setCount] = useState(0);
   const ID = item.id;
   if (ID === 1) {
@@ -22,13 +24,13 @@ const DailyInsights = ({ item }) => {
           marginRight: 10,
           padding: 12,
           borderRadius: 10,
-          backgroundColor: Colors.black,
+          backgroundColor: colors.card,
         }}
       >
         <Entypo
           name="bookmarks"
           size={36}
-          color={Colors.green}
+          color={colors.green}
           style={{
             position: "absolute",
             top: 10,
@@ -49,7 +51,7 @@ const DailyInsights = ({ item }) => {
             font={"M-Medium"}
             style={{
               fontSize: 20,
-              color: "#fff",
+              color: colors.text,
               textAlign: "center",
             }}
           >
@@ -79,14 +81,14 @@ const DailyInsights = ({ item }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "#fff",
+              backgroundColor: colors.text,
               padding: 10,
               width: "100%",
               borderRadius: 6,
             }}
             onPress={() => setCount((count) => (count + 1) % 31)}
           >
-            <RNText font={"M-Medium"} style={{ fontSize: 16, color: "#000" }}>
+            <RNText font={"M-Medium"} style={{ fontSize: 16, color: colors.background }}>
             New Tip 🪴
             </RNText>
           </TouchableOpacity>

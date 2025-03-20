@@ -12,7 +12,9 @@ import Colors from "../../constants/Colors";
 import { Image } from "expo-image";
 import TargetImg from "../../assets/app/target.png";
 import { calculateTreesPlanted } from "../../constants/helpers";
+import { useTheme } from "react-native-paper";
 const Personal = () => {
+  const {colors} = useTheme();
   return (
     <View
       style={{
@@ -58,7 +60,7 @@ const Personal = () => {
             <Image source={TargetImg} style={{ width: 24, height: 24 }} />
           </View>
 
-          <RNText font={"M-Medium"} style={{ fontSize: 20, color: "#fff" }}>
+          <RNText font={"M-Medium"} style={{ fontSize: 20, color:colors.white }}>
             Save 1,512 Kg CO₂
           </RNText>
         </View>
@@ -74,7 +76,7 @@ const Personal = () => {
 
       <View
         style={{
-          backgroundColor: "#111",
+          backgroundColor: "#222",
           marginTop: -1,
           width: "auto",
           flexDirection: "column",
@@ -108,7 +110,7 @@ const Personal = () => {
         <RNText
           font={"M-Regular"}
           style={{
-            color: "#fff",
+            color: colors.white,
             fontSize: 15,
             paddingHorizontal: 14,
             textAlign: "center",
