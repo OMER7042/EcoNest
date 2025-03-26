@@ -13,13 +13,15 @@ import { Image } from "expo-image";
 import TargetImg from "../../assets/app/target.png";
 import { calculateTreesPlanted } from "../../constants/helpers";
 import { useTheme } from "react-native-paper";
+import { AuthContext } from "../../context/authcontext";
 const Personal = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
+  const { user } = useContext(AuthContext);
   return (
     <View
       style={{
         flex: 1,
-        marginTop: 16,
+        marginTop: 8,
       }}
     >
       <View
@@ -60,7 +62,10 @@ const Personal = () => {
             <Image source={TargetImg} style={{ width: 24, height: 24 }} />
           </View>
 
-          <RNText font={"M-Medium"} style={{ fontSize: 20, color:colors.white }}>
+          <RNText
+            font={"M-Medium"}
+            style={{ fontSize: 20, color: colors.white }}
+          >
             Save 1,512 Kg CO₂
           </RNText>
         </View>
@@ -92,7 +97,7 @@ const Personal = () => {
           }}
         >
           <CircularProgress
-            value={5.6}
+            value={user?.saved || 0}
             radius={90}
             progressValueColor={"#ecf0f1"}
             maxValue={1512}
@@ -103,7 +108,7 @@ const Personal = () => {
             progressFormatter={(value) => {
               "worklet";
 
-              return value.toFixed(1); // 2 decimal places
+              return value?.toFixed(1); // 2 decimal places
             }}
           />
         </View>
@@ -120,9 +125,7 @@ const Personal = () => {
           Yay! Your CO₂ savings are equal what
           <RNText font={"M-Bold"} style={{ color: Colors.green }}>
             {" "}
-            {
-              calculateTreesPlanted(5.6) 
-            }{" "}
+            {calculateTreesPlanted(user?.saved)}{" "}
           </RNText>
           trees fix in a month.
         </RNText>

@@ -32,9 +32,9 @@ const HomeHeader = () => {
         <Image source={LogoImg} style={{ height: hp(8), aspectRatio: 1 }} />
       </TouchableOpacity>
 
-      <Chip style={{ marginLeft: 10 }} onPress={toggleTheme}>
+      {/* <Chip style={{ marginLeft: 10 }} onPress={toggleTheme}>
         Toggle
-      </Chip>
+      </Chip> */}
       <View
         style={{
           borderRadius: 20,
@@ -50,7 +50,7 @@ const HomeHeader = () => {
         }}
       >
         <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
-          100
+         {user?.points}
         </RNText>
         <Image
           source={POINTS_IMG_URL}
@@ -72,7 +72,7 @@ const HomeHeader = () => {
         }}
       >
         <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
-          2.3
+        {user?.saved}
         </RNText>
         <Image source={ECO_IMG_URL} style={{ height: 20, aspectRatio: 1 }} />
       </View>

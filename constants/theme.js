@@ -20,6 +20,7 @@ export const lightTheme = {
     white: "#fff",
     black: "#000",
     opposite: "#18191F",
+    gold: "#FDD835",
   },
 };
 
@@ -43,5 +44,6 @@ export const darkTheme = {
     white: "#fff",
     black: "#000",
     opposite: "#FFF",
+    gold: "#FDD835",
   },
 };

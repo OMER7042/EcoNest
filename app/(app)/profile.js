@@ -25,11 +25,13 @@ import { AuthContext } from "../../context/authcontext";
 import ProfileImage from "../../components/ProflieImage";
 import RNText from "../../components/RNText";
 import { updateProflie } from "../../constants/api";
-import { List, MD3Colors } from "react-native-paper";
+import { List, MD3Colors, useTheme } from "react-native-paper";
 const ios = Platform.OS === "ios";
 
 const Profile = () => {
   const { top } = useSafeAreaInsets();
+
+  const {colors} = useTheme();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleClose = () => {
@@ -89,41 +91,28 @@ const Profile = () => {
       ]);
     }
   };
- 
-    return (
-      <CustomKeyboardView>
-        <View
+
+  return (
+    <CustomKeyboardView>
+      <View
+        style={{
+          padding: 12,
+          flex: 1,
+        }}
+      >
+  
+        <RNText
           style={{
-            paddingTop: ios ? top : top + 10,
-            padding: 20,
-            flex: 1,
+            fontSize: 26.25,
+            lineHeight: 31.5,
+            textAlign: "center",
+            color: colors.text,
           }}
         >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Pressable
-              style={{ flexDirection: "row", alignSelf: "flex-start" }}
-              onPress={logout}
-            >
-              <MaterialIcons name="logout" size={24} color="black" />
-            </Pressable>
-            <Pressable style={{ alignSelf: "flex-end" }} onPress={handleClose}>
-              <MaterialCommunityIcons name="close" size={30} color="black" />
-            </Pressable>
-          </View>
+          {user?.email}
+        </RNText>
 
-          <RNText
-            style={{
-              fontSize: 26.25,
-              lineHeight: 31.5,
-              textAlign: "center",
-            }}
-          >
-            {user?.email}
-          </RNText>
-
-          {/* {updateImage === false ? (
+        {/* {updateImage === false ? (
             <>
               <View
                 style={{
@@ -333,9 +322,9 @@ const Profile = () => {
               )}
             </View>
           </View> */}
-        </View>
-      </CustomKeyboardView>
-    );
+      </View>
+    </CustomKeyboardView>
+  );
 };
 
 export default Profile;

@@ -6,17 +6,21 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+import { useTheme } from "react-native-paper";
 
 const ios = Platform.OS === "ios";
 
 const CustomKeyboardView = ({ children }) => {
+  const {colors} = useTheme();
   return (
     <KeyboardAvoidingView
       behavior={ios ? "padding" : "height"}
       style={{ flex: 1 }}
     >
       <ScrollView
-        style={{ flex: 1 }}
+        style={{ flex: 1 ,
+          backgroundColor: colors.background
+        }}
         showsVerticalScrollIndicator={false}
         bounces={false}
       >

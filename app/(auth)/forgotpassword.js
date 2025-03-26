@@ -20,24 +20,25 @@ import RNText from "../../components/RNText";
 import ForgotPass from "../../assets/app/forgot-password.png";
 import { Image } from "expo-image";
 import RNTextInput from "../../components/RNTextInput";
-import { Snackbar, TextInput } from "react-native-paper";
+import { Snackbar, TextInput, useTheme } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 
 const ForgotPasswordScreen = () => {
+  const { colors } = useTheme();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const { resetPassword } = useContext(AuthContext);
   const router = useRouter();
-    const [visible, setVisible] = useState("");
-  
+  const [visible, setVisible] = useState("");
+
   const handleResetPassword = async () => {
     // check if email is valid
     if (email === "") {
       setVisible("Email is required");
       return;
     }
-    // add email regex check 
+    // add email regex check
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailRegex.test(email)) {
       setVisible("Invalid email");
@@ -49,9 +50,7 @@ const ForgotPasswordScreen = () => {
     setLoading(false);
 
     if (status.success) {
-
       setVisible("Password Reset Email Sent");
-  
     } else {
       setVisible(status.message);
     }
@@ -62,6 +61,7 @@ const ForgotPasswordScreen = () => {
     <ScrollView
       style={{
         flex: 1,
+        backgroundColor: colors.background,
       }}
     >
       <TouchableOpacity
@@ -70,7 +70,6 @@ const ForgotPasswordScreen = () => {
           zIndex: 1,
           left: hp(2),
           top: wp(16),
-          backgroundColor: Colors.lightGray,
           borderRadius: 50,
           padding: 5,
         }}
@@ -89,7 +88,7 @@ const ForgotPasswordScreen = () => {
       >
         <View
           style={{
-            backgroundColor: Colors.secondary,
+            // backgroundColor: Colors.secondary,
             paddingTop: hp(8),
             maxHeight: hp(40),
             flex: 1,
@@ -117,6 +116,7 @@ const ForgotPasswordScreen = () => {
               lineHeight: 35,
               marginTop: 7,
               textAlign: "center",
+              color: colors.text,
             }}
           >
             Forgot Password
@@ -134,8 +134,10 @@ const ForgotPasswordScreen = () => {
             }}
             left={<TextInput.Icon icon="account" />}
           />
-          <RNText font={"M-Medium"} style={{ textAlign: "center" }}>
-       
+          <RNText
+            font={"M-Medium"}
+            style={{ textAlign: "center", color: colors.text }}
+          >
             Please enter your registered email address to receive a password
             reset link to create a new password.
           </RNText>
@@ -153,7 +155,7 @@ const ForgotPasswordScreen = () => {
               <>
                 <Pressable
                   style={{
-                    backgroundColor: Colors.black,
+                    backgroundColor: colors.text,
                     borderRadius: 5,
                     padding: 7,
                     shadowColor: "#000",
@@ -171,8 +173,8 @@ const ForgotPasswordScreen = () => {
                     font={"M-ExtraBold"}
                     style={{
                       fontSize: hp(2.2),
-                      color: "#fff",
                       textAlign: "center",
+                      color:colors.background,
                       padding: 7,
                       borderRadius: 5,
                     }}
@@ -190,9 +192,9 @@ const ForgotPasswordScreen = () => {
         onDismiss={onDismissSnackBar}
         action={{
           label: "Okay",
-        }}>
-       {visible}
-
+        }}
+      >
+        {visible}
       </Snackbar>
     </ScrollView>
   );

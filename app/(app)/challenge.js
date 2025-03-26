@@ -15,7 +15,7 @@ import { useTheme } from "react-native-paper";
 const ios = Platform.OS === "ios";
 
 const Challenge = () => {
-  const { title, info, img, points, footprint } = useGlobalSearchParams();
+  const { title, info, img, points, saved } = useGlobalSearchParams();
   const { top } = useSafeAreaInsets();
   const { colors } = useTheme();
   return (
@@ -133,7 +133,7 @@ const Challenge = () => {
                 color: Colors.green,
               }}
             >
-              {footprint}
+              {saved}
             </RNText>
             <RNText
               style={{

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Slot, Stack, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { AuthProvider, useAuth } from "../context/authcontext";
 import { useFonts } from "expo-font";
 import {
-  MD3LightTheme as DefaultTheme,
   PaperProvider,
 } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "react-native";
-import { darkTheme, lightTheme } from "../constants/theme";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -28,7 +25,7 @@ const MainLayout = () => {
         // Pop from stack until one element is left
         router.back();
       }
-      router.replace("/home");
+      router.replace("/onboarding");
     }
   }, [isAuthenticated]);
 

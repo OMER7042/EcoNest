@@ -13,10 +13,11 @@ import { Image } from "expo-image";
 import LogoImg from "../../assets/app/logo.png";
 import RNTextInput from "../../components/RNTextInput";
 import Colors from "../../constants/Colors";
-import { Icon, Snackbar, TextInput } from "react-native-paper";
+import { Icon, Snackbar, TextInput, useTheme } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 const SignUp = () => {
+  const {colors} = useTheme();
   const { register } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -46,7 +47,6 @@ const SignUp = () => {
 
   return (
     <CustomKeyboardView>
-  
       <View
         style={{
           paddingTop: hp(6),
@@ -68,6 +68,8 @@ const SignUp = () => {
               fontSize: 31.5,
               lineHeight: 35,
               marginTop: 14,
+              color: colors.text,
+
             }}
           >
             Create an Account
@@ -81,7 +83,6 @@ const SignUp = () => {
             outlineStyle={{
               borderWidth: 1,
               borderColor: "#afbfcf",
-
               borderRadius: 10,
             }}
             left={<TextInput.Icon icon="account" />}

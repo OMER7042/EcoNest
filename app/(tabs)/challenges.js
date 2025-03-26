@@ -6,7 +6,7 @@ import { Image } from "expo-image";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import {  TouchableOpacity, View } from "react-native";
 import {  POINTS_IMG_URL, TASKS } from "../../constants/constants";
-import { router, Tabs } from "expo-router";
+import { router  } from "expo-router";
 
 import Colors from "../../constants/Colors";
 
@@ -80,7 +80,7 @@ const Challenges = () => {
                 title: action.title,
                 img: action.img,
                 points: action.points,
-                footprint: action.footprint,
+                saved: action.saved,
                 info: action.info,
               },
             });
@@ -153,7 +153,7 @@ const Challenges = () => {
                 }}
               >
                 <RNText font={"Poppins-SemiBold"} style={{ fontSize: 12 }}>
-                  {action.footprint} kg CO₂eq
+                  {action.saved} kg CO₂eq
                 </RNText>
               </View>
             </View>

@@ -13,23 +13,20 @@ export default function TabsLayout() {
     <>
       <Tabs
         screenOptions={{
-          tabBarStyle: { backgroundColor: colors.background},
-          tabBarActiveTintColor: colors.primary,
-          tabBarInactiveBackgroundColor: colors.primary,
-          tabBarActiveBackgroundColor: colors.background,
-          headerStyle: {
+          tabBarStyle: {
             backgroundColor: colors.background,
           },
+          tabBarActiveBackgroundColor: colors.background,
+          headerStyle: {
+            backgroundColor: colors.text,
+          },
           tabBarItemStyle: {
-            backgroundColor: "#fff",
             color: colors.primary,
           },
           tabBarLabelStyle: {
-            fontFamily: "M-ExtraBold",
-            fontSize: 8,
+            fontFamily: "M-Medium",
+            fontSize: 10,
           },
-          headerShadowVisible: false,
-          // tabBarShowLabel: false,
           tabBarActiveTintColor: colors.green,
         }}
       >
@@ -81,8 +78,10 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="organization"
           options={{
-            headerTitle: "Organization",
-            title: "Organization",
+            headerTitle: "Community",
+            headerShown: false,
+            title: "Community",
+            headerShown: false,
             headerTitleStyle: {
               fontFamily: "M-ExtraBold",
               fontSize: 36,

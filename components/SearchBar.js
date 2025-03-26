@@ -11,7 +11,7 @@ const SearchBar = (props) => {
       <View style={styles.searchBar__unclicked}>
         <TextInput
           style={styles.input}
-          placeholder="Search with love..."
+          placeholder="Search..."
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
         />
@@ -19,7 +19,7 @@ const SearchBar = (props) => {
         {props.searchPhrase.length > 0 ? (
           <Entypo
             name="cross"
-            size={20}
+            size={28}
             color="black"
             style={{ right: 10, position: "absolute" }}
             onPress={() => {
@@ -29,7 +29,7 @@ const SearchBar = (props) => {
         ) : (
           <Feather
             name="search"
-            size={20}
+            size={28}
             color="black"
             style={{ right: 10, position: "absolute" }}
           />
@@ -44,10 +44,9 @@ export default SearchBar;
 const styles = StyleSheet.create({
   container: {
     marginVertical: 16,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    width: wp(94),
     position: "relative",
   },
   searchBar__unclicked: {

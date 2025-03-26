@@ -4,19 +4,21 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import LogoImg from "../../assets/app/logo.png";
+import LogoImg from "../../assets/app/signin.png";
 import Loading from "../../components/Loading";
 import { AuthContext } from "../../context/authcontext";
 import { useRouter } from "expo-router";
 import CustomKeyboardView from "../../components/CustomKeybordView";
 import RNText from "../../components/RNText";
 import { Image } from "expo-image";
-import { Snackbar, TextInput } from "react-native-paper";
+import { Snackbar, TextInput, useTheme } from "react-native-paper";
 import RNTextInput from "../../components/RNTextInput";
 import Colors from "../../constants/Colors";
 
 const SignIn = () => {
   const { login } = useContext(AuthContext);
+  const { colors } = useTheme();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -50,24 +52,20 @@ const SignIn = () => {
           paddingTop: hp(10),
           paddingHorizontal: wp(5),
           flex: 1,
-          gap: 8,
-          height: hp(100),
+          gap: 18,
         }}
       >
         <View
           style={{
             justifyContent: "center",
             alignItems: "center",
-
           }}
         >
           <Image
             source={LogoImg}
             style={{
-              width: wp(60),
-              aspectRatio: 1,
-              // center the image
-              alignSelf: "center",
+              width: wp(70),
+              height: hp(35),
             }}
           />
 
@@ -76,6 +74,8 @@ const SignIn = () => {
             style={{
               fontSize: 31.5,
               lineHeight: 35,
+              color: colors.text,
+
             }}
           >
             Welcome Back
@@ -85,8 +85,8 @@ const SignIn = () => {
             style={{
               fontSize: 16.5,
               lineHeight: 35,
-              color: "#333",
               textAlign: "center",
+              color: colors.gray,
             }}
           >
             Login to keep track of carbon usage
@@ -148,6 +148,7 @@ const SignIn = () => {
                 style={{
                   textAlign: "right",
                   marginTop: 8,
+                  color: colors.text,
                 }}
                 font={"M-SemiBold"}
               >
@@ -209,7 +210,7 @@ const SignIn = () => {
               gap: 8,
             }}
           >
-            <RNText style={{ color: "#6B7280" }} font={"M-Medium"}>
+            <RNText style={{ color: colors.text}} font={"M-Medium"}>
               New to EcoNest?{" "}
             </RNText>
             <TouchableOpacity

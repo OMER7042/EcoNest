@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   widthPercentageToDP,
-  heightPercentageToDP,
 } from "react-native-responsive-screen";
 import { useRouter } from "expo-router";
 import RNText from "../../components/RNText";
 import Colors from "../../constants/Colors";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { StatusBar } from "expo-status-bar";
 
 const Onboarding = () => {
   const router = useRouter();

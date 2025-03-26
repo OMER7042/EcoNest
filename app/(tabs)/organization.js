@@ -1,31 +1,18 @@
-import { Linking, View } from "react-native";
-import React from "react";
-import RNText from "../../components/RNText";
-import Colors from "../../constants/Colors";
-import { router } from "expo-router";
+import { View } from "react-native";
+import React, { useState } from "react";
+import CommunityProgress from "../../components/App/CommunityProgress";
+import SearchBar from "../../components/SearchBar";
+import { useTheme } from "react-native-paper";
+import MinimalLayout from "../../components/Layout/MinimalLayout";
 
 const Organization = () => {
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const { colors } = useTheme();
   return (
-    <View
-      style={{
-        paddingTop: 50,
-        flex: 1,
-        backgroundColor: "#fff",
-        gap: 8,
-      }}
-    >
-
-        <RNText
-          font={"M-Bold"}
-          style={{
-            fontSize: 24,
-            color: Colors.primary,
-            textAlign: "center",
-          }}
-        >
-          Organization
-        </RNText>
-    </View>
+    <MinimalLayout>
+    
+      <CommunityProgress />
+    </MinimalLayout>
   );
 };
 
