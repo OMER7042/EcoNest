@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import MinimalLayout from "../../components/Layout/MinimalLayout";
 import RNText from "../../components/RNText";
 import { List, useTheme } from "react-native-paper";
 import { Image } from "expo-image";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import {  TouchableOpacity, View } from "react-native";
-import {  POINTS_IMG_URL, TASKS } from "../../constants/constants";
-import { router  } from "expo-router";
+import { TouchableOpacity, View } from "react-native";
+import { POINTS_IMG_URL, TASKS } from "../../constants/constants";
+import { router } from "expo-router";
 
 import Colors from "../../constants/Colors";
+import { AuthContext } from "../../context/authcontext";
+import { Ionicons } from "@expo/vector-icons";
+import ChallengeImage from "../../assets/app/challenge.png";
 
 const Challenges = () => {
   const { colors } = useTheme();
+  const { user } = useContext(AuthContext);
   return (
     <MinimalLayout showHeader>
       <View
@@ -24,42 +28,62 @@ const Challenges = () => {
         }}
       >
         <Image
-          source={
-            "https://woliba.io/wp-content/uploads/2024/03/Mind-Body-Wellness-Tips-1.png"
-          }
+          source={ChallengeImage}
           style={{
-            width: "100%",
-            height: 220,
-            borderRadius: 20,
+            height: 240,
+            aspectRatio: 1,
           }}
           contentFit="cover"
         />
       </View>
-      <View style={{color:colors.text, padding: 10, gap: 5 }}>
-        <RNText font={"Poppins-Bold"} style={{color:colors.text, fontSize: 20 }}>
+      <View style={{ color: colors.text, padding: 10, gap: 5 }}>
+        <RNText
+          font={"Poppins-Bold"}
+          style={{ color: colors.purple, fontSize: 20 }}
+        >
           ECONest - Climate Champion Challenges
         </RNText>
-        <RNText font={"Poppins-Regular"} style={{color:colors.text, fontSize: 16 }}>
+        <RNText
+          font={"Poppins-Regular"}
+          style={{ color: colors.text, fontSize: 16 }}
+        >
           Tick off these sustainable tasks to earn points and reduce your carbon
           footprint.
         </RNText>
-        <RNText font={"Poppins-Regular"} style={{color:colors.text, fontSize: 16 }}>
+        <RNText
+          font={"Poppins-Regular"}
+          style={{ color: colors.text, fontSize: 16 }}
+        >
           Take action to reduce your carbon footprint and earn points!
         </RNText>
 
-        <RNText font={"Poppins-Bold"} style={{color:colors.text, fontSize: 18 }}>
+        <RNText
+          font={"Poppins-Bold"}
+          style={{ color: colors.text, fontSize: 18 }}
+        >
           Let's do this!{" "}
         </RNText>
-        <RNText font={"Poppins-Regular"} style={{color:colors.text, fontSize: 16 }}>
+        <RNText
+          font={"Poppins-Regular"}
+          style={{ color: colors.text, fontSize: 16 }}
+        >
           The First Step to chaning the world is changing yourself.{" "}
         </RNText>
-        <RNText font={"Poppins-Regular"} style={{color:colors.text, fontSize: 16 }}>
+        <RNText
+          font={"Poppins-Regular"}
+          style={{ color: colors.text, fontSize: 16 }}
+        >
           Start with a action today, and make a difference.{" "}
         </RNText>
       </View>
       <RNText
         font={"Poppins-Bold"}
-        style={{color:colors.text, fontSize: 18, marginLeft: 10, marginTop: 10 }}
+        style={{
+          color: colors.text,
+          fontSize: 18,
+          marginLeft: 10,
+          marginTop: 10,
+        }}
       >
         Tasks
       </RNText>
@@ -82,10 +106,21 @@ const Challenges = () => {
                 points: action.points,
                 saved: action.saved,
                 info: action.info,
+                successTitle: action.successTitle,
+                successSubtitle: action.successSubtitle,
+                id: action.id,
               },
             });
           }}
         >
+          {user?.challenges.includes(action.id.toString()) && (
+            <Ionicons
+              name="checkmark-circle"
+              size={28}
+              color={Colors.purple}
+              style={{ position: "absolute", top: 10, right: 6 }}
+            />
+          )}
           <Image
             source={action.img}
             style={{
@@ -104,6 +139,7 @@ const Challenges = () => {
                 color: colors.text,
               }}
               font={"Poppins-SemiBold"}
+              numberOfLines={2}
             >
               {action.title}
             </RNText>
@@ -130,7 +166,10 @@ const Challenges = () => {
                   gap: 5,
                 }}
               >
-                <RNText font={"Poppins-Bold"} style={{ fontSize: 14, color: colors.text,marginTop: 2.5 }}>
+                <RNText
+                  font={"Poppins-Bold"}
+                  style={{ fontSize: 14, color: colors.text, marginTop: 2.5 }}
+                >
                   {action.points}
                 </RNText>
                 <Image

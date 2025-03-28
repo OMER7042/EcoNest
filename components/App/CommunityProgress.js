@@ -22,7 +22,6 @@ const CommunityProgress = () => {
   const { colors } = useTheme();
   const { user, communityStats } = useContext(AuthContext);
 
-  const [loading, setLoading] = useState(false);
 
   return (
     <View
@@ -72,7 +71,7 @@ const CommunityProgress = () => {
               >
                 <Image
                   source={
-                    "https://legacytree.world/wp-content/uploads/2019/02/community-shared-tree-sponsorship.jpg"
+                    "https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   }
                   style={{
                     width: 40,
@@ -252,13 +251,14 @@ const ProgressBar = ({ isMain, user,communityStats }) => {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
+            gap: 2,
           }}
         >
           <Image
             source={
-              "https://legacytree.world/wp-content/uploads/2019/02/community-shared-tree-sponsorship.jpg"
+              "https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             }
-            style={{ width: 60, height: 60, marginRight: 10 }}
+            style={{ width: 60, height: 60, marginRight: 10 , borderRadius: 8}}
             contentFit="cover"
           />
           <View>
@@ -284,13 +284,13 @@ const ProgressBar = ({ isMain, user,communityStats }) => {
                   borderRadius: 20,
                   textAlign: "center",
                   borderWidth: 1,
-                  borderColor: "#fff",
+                  borderColor:  colors.primary,
                   marginVertical: 5,
-                  width: 120,
+                  width: 80,
                   padding: 2,
                 }}
               >
-                200 Members
+               Public 
               </RNText>
 
               <TouchableOpacity

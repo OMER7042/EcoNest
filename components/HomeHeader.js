@@ -50,7 +50,7 @@ const HomeHeader = () => {
         }}
       >
         <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
-         {user?.points}
+          {user?.points || 0}
         </RNText>
         <Image
           source={POINTS_IMG_URL}
@@ -72,13 +72,12 @@ const HomeHeader = () => {
         }}
       >
         <RNText font={"M-Bold"} style={{ fontSize: 12, color: colors.text }}>
-        {user?.saved}
+          {Number(user?.saved || 0).toFixed(2)}
         </RNText>
         <Image source={ECO_IMG_URL} style={{ height: 20, aspectRatio: 1 }} />
       </View>
 
       <Pressable
-        style={{}}
         onPress={() => {
           router.push("/profile");
         }}
@@ -90,11 +89,7 @@ const HomeHeader = () => {
             borderRadius: 100,
             backgroundColor: "#0553",
           }}
-          source={
-            user?.profileUrl
-              ? user?.profileUrl
-              : "https://cdn3d.iconscout.com/3d/premium/thumb/user-3711728-3105450.png?f=webp"
-          }
+          source={user?.profileUrl}
           placeholder={blurhash}
           transition={500}
         />

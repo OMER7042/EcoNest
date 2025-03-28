@@ -16,11 +16,16 @@ const CustomKeyboardView = ({ children }) => {
     <KeyboardAvoidingView
       behavior={ios ? "padding" : "height"}
       style={{ flex: 1 }}
-    >
+      //allow to tclick buttons when keyboard is open
+    
+      
+
+>
       <ScrollView
         style={{ flex: 1 ,
           backgroundColor: colors.background
         }}
+        keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         bounces={false}
       >

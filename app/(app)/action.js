@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { router, useGlobalSearchParams } from "expo-router";
 import Colors from "../../constants/Colors";
 import { Pressable } from "react-native";
@@ -20,6 +20,7 @@ import {
   widthPercentageToDP,
 } from "react-native-responsive-screen";
 import {
+  ACTIONS,
   CO2_EMISSION_FACTOR,
   ENERGY_DATA,
   FOOD_DATA,
@@ -30,11 +31,14 @@ import {
 import Slider from "@react-native-community/slider";
 
 import Loading from "../../components/Loading";
-const ios = Platform.OS === "ios";
+import { addNewEntry } from "../../constants/api";
+import { AuthContext } from "../../context/authcontext";
+// const ios = Platform.OS === "ios";
 
 const Action = () => {
+  const {user} = useContext(AuthContext);
   const { top } = useSafeAreaInsets();
-  const { title, subtitle } = useGlobalSearchParams();
+  const { title, subtitle, id } = useGlobalSearchParams();
   const [savedCO2, setSavedCO2] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -554,8 +558,91 @@ const Action = () => {
     }
   };
 
-  const handleLogAction = () => {
-    router.back();
+  const handleLogAction = async () => {
+    const saved = calculateCO2Savings();
+    const points = Math.round(saved * 2);
+
+    try {
+      const actionData = {
+        img: "",
+        points,
+        saved,
+        successTitle: ACTIONS[id - 1].successTitle,
+        successSubtitle: ACTIONS[id - 1].successSubtitle,
+        title: "",
+      };
+
+      setLoading(true);
+
+      switch (title) {
+        case "Travel":
+          actionData.title =
+            "Travelled by" +
+            TRAVEL_DATA[firstTravel - 1].title +
+            " instead of " +
+            TRAVEL_DATA[secondTravel - 1].title;
+          actionData.img = TRAVEL_DATA[firstTravel - 1].img;
+          break;
+        case "Energy":
+          actionData.title =
+            ENERGY_DATA[selectedEnergy - 1].title +
+            " - " +
+            ENERGY_DATA[selectedEnergy - 1].info;
+          actionData.img = ENERGY_DATA[selectedEnergy - 1].img;
+          break;
+        case "Food":
+          actionData.title =
+            FOOD_DATA[foodType - 1].title +
+            " - " +
+            FOOD_DATA[foodType - 1].info;
+          actionData.img = FOOD_DATA[foodType - 1].img;
+
+          break;
+        case "Waste":
+          actionData.title =
+            WASTE_DATA[wasteType - 1].title +
+            " - " +
+            WASTE_DATA[wasteType - 1].info;
+          actionData.img = WASTE_DATA[wasteType - 1].img;
+
+          break;
+        case "Remediation":
+          actionData.title =
+            REMEDIATION_DATA[remediationType - 1].title +
+            " - " +
+            REMEDIATION_DATA[remediationType - 1].info +
+            " x" +
+            remediationCount;
+          actionData.img = REMEDIATION_DATA[remediationType - 1].img;
+          break;
+        default:
+          break;
+      }
+
+      console.log("Action data:", actionData);
+
+      const response = await addNewEntry(user?.id, {
+        type: "Action",
+        date: new Date(),
+        id,
+        ...actionData,
+      });
+      if (response.success) {
+        router.push({
+          pathname: "share",
+          params: {
+            ...actionData,
+          },
+        });
+      } else {
+        Alert.alert("Error", response.msg);
+      }
+      console.log("Action data:", actionData);
+    } catch (error) {
+      console.error("Error updating user entry:", error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <View
@@ -689,7 +776,7 @@ const Action = () => {
             <Loading size={heightPercentageToDP(6.5)} />
           </View>
         ) : (
-          <Pressable
+          <TouchableOpacity
             style={[
               {
                 width: widthPercentageToDP(40),
@@ -721,7 +808,7 @@ const Action = () => {
             >
               Log Action
             </RNText>
-          </Pressable>
+          </TouchableOpacity>
         )}
       </View>
     </View>

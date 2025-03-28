@@ -1,327 +1,331 @@
-import {
-  View,
-  Platform,
-  Pressable,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Pressable, Alert, TouchableOpacity } from "react-native";
 import React, { useContext, useState } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
   widthPercentageToDP,
 } from "react-native-responsive-screen";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import { blurhash } from "../../constants";
-import Loading from "../../components/Loading";
 import CustomKeyboardView from "../../components/CustomKeybordView";
-import { useLocalSearchParams, useRouter } from "expo-router";
 import { AuthContext } from "../../context/authcontext";
 import ProfileImage from "../../components/ProflieImage";
 import RNText from "../../components/RNText";
-import { updateProflie } from "../../constants/api";
-import { List, MD3Colors, useTheme } from "react-native-paper";
-const ios = Platform.OS === "ios";
+import { saveProfileUrl } from "../../constants/api";
+import { List, useTheme } from "react-native-paper";
 
 const Profile = () => {
-  const { top } = useSafeAreaInsets();
-
-  const {colors} = useTheme();
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const handleClose = () => {
-    router.back();
-  };
-  const { logout, user, setUser } = useContext(AuthContext);
+  const { user, logout, isDarkMode, toggleTheme } = useContext(AuthContext);
   const [updateImage, setUpdateImage] = useState(false);
-  const {
-    friend,
-    id,
-    profileUrl,
-    phone: friendPhone,
-    bio: friendBio,
-    gender: friendGender,
-    name: friendName,
-  } = useLocalSearchParams();
-  const newUserExtract = friend ? friend : null;
-  const upateProfile = (url) => {
+
+  const upateProfile = async (url) => {
+    await saveProfileUrl(user.id, url);
     setUpdateImage(false);
-
-    setUser((user) => {
-      return { ...user, profileUrl: url };
-    });
   };
-  const profileUrlU = profileUrl?.includes("firebase")
-    ? profileUrl.toString().replace(/\/(?=[^\/]*$)/, "%2F")
-    : profileUrl;
 
-  const [name, setName] = useState(user?.name);
-  const [gender, setGender] = useState(user?.gender);
-  const [phone, setPhone] = useState(user?.phone);
-  const [bio, setBio] = useState(user?.bio);
-  const handleUpdateProfile = async () => {
-    console.log(name, phone, bio, gender);
-    if (!name || !phone || !bio || !gender) {
-      Alert.alert("Update Profile", "All fields are required");
-      return;
-    } else {
-      setLoading(true);
-      await updateProflie(user.id, {
-        name,
-        phone,
-        bio,
-        gender,
-      });
-      setUser((user) => {
-        return { ...user, name, phone, bio, gender };
-      });
-      setLoading(false);
-      Alert.alert("Profile Updated", "Profile updated successfully", [
-        {
-          text: "OK",
-          onPress: () => {
-            router.back();
-          },
-        },
-      ]);
-    }
-  };
+  const { colors } = useTheme();
 
   return (
     <CustomKeyboardView>
       <View
         style={{
-          padding: 12,
           flex: 1,
+          padding: wp(5),
+          backgroundColor: colors.background,
+          height: hp(90),
         }}
       >
-  
-        <RNText
-          style={{
-            fontSize: 26.25,
-            lineHeight: 31.5,
-            textAlign: "center",
-            color: colors.text,
-          }}
-        >
-          {user?.email}
-        </RNText>
-
-        {/* {updateImage === false ? (
-            <>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  marginVertical: 14,
-                }}
-              >
-                <Image
-                  style={{
-                    height: hp(20),
-                    aspectRatio: 1,
-                    borderRadius: 4,
-                    backgroundColor: "#0553",
-                  }}
-                  source={
-                    user?.profileUrl
-                      ? user?.profileUrl
-                      : "https://cdn3d.iconscout.com/3d/premium/thumb/user-3711728-3105450.png?f=webp"
-                  }
-                  placeholder={blurhash}
-                  transition={500}
-                />
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <Pressable
-                  style={{
-                    borderRadius: 5,
-                    width: "50%",
-                    backgroundColor: "#000000",
-                  }}
-                  onPress={() => {
-                    setUpdateImage(true);
-                  }}
-                >
-                  <RNText
-                    style={{
-                      fontSize: hp(1.8),
-                      textAlign: "center",
-                      color: "#fff",
-                      padding: 7,
-                      borderRadius: 5,
-                    }}
-                  >
-                    Update Image
-                  </RNText>
-                </Pressable>
-              </View>
-            </>
-          ) : (
-            <View
-              style={{
-                minHeight: hp(35),
-                paddingBottom: 20,
-              }}
-            >
-              <ProfileImage id={user.id} upateProfile={upateProfile} />
-            </View>
-          )}
-
-          <View
-            style={{
-              gap: 3.5 * 3.5,
-            }}
-          >
-            <RNText font="M-Bold">Name</RNText>
-            <TextInput
-              style={{
-                padding: 7,
-                marginTop: -7,
-                borderRadius: 5,
-                borderWidth: 2,
-                borderColor: "#D1D5DB",
-                width: "100%",
-              }}
-              value={name}
-              onChangeText={setName}
-            />
-            <RNText font="M-Bold">Gender</RNText>
+        {updateImage === false ? (
+          <>
             <View
               style={{
                 flexDirection: "row",
-                justifyContent: "space-between",
-                gap: 5,
+                justifyContent: "center",
+                marginBottom: 14,
               }}
             >
-              <TouchableOpacity
+              <Image
                 style={{
-                  backgroundColor: gender === "male" ? "#111" : "#fff",
-                  //border
-                  padding: 10,
+                  height: hp(20),
+                  aspectRatio: 1,
+                  borderRadius: 100,
                   borderWidth: 1,
-
-                  width: widthPercentageToDP(40),
-                  borderRadius: 10,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  borderColor: "#D1D5DB",
                 }}
-                onPress={() => {
-                  setGender("male");
-                }}
-              >
-                <RNText
-                  style={{
-                    color: gender === "male" ? "#fff" : "#111",
-                    textAlign: "center",
-                  }}
-                  font={"M-Bold"}
-                >
-                  Male
-                </RNText>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: gender === "female" ? "#111" : "#fff",
-
-                  //border
-                  borderWidth: 1,
-                  padding: 10,
-                  width: widthPercentageToDP(40),
-                  borderRadius: 10,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  setGender("female");
-                }}
-              >
-                <RNText
-                  style={{
-                    color: gender === "female" ? "#fff" : "#111",
-                    textAlign: "center",
-                  }}
-                  font={"M-Bold"}
-                >
-                  Female
-                </RNText>
-              </TouchableOpacity>
+                source={
+                  user?.profileUrl
+                    ? user?.profileUrl
+                    : "https://cdn3d.iconscout.com/3d/premium/thumb/user-3711728-3105450.png?f=webp"
+                }
+                placeholder={blurhash}
+                transition={500}
+              />
             </View>
-
-            <RNText font="M-Bold">Department</RNText>
-            <TextInput
-              placeholder="your deptartment.."
+            <View
               style={{
-                padding: 7,
-                marginTop: -7,
-                borderRadius: 5,
-                borderWidth: 2,
-                borderColor: "#D1D5DB",
-                width: "100%",
+                flexDirection: "row",
+                justifyContent: "center",
               }}
-              value={phone}
-              onChangeText={setPhone}
-            />
-            <RNText font="M-Bold">About You</RNText>
-            <TextInput
-              placeholder="Write about yourself.."
-              style={{
-                padding: 7,
-                marginTop: -7,
-                borderRadius: 5,
-                borderWidth: 2,
-                borderColor: "#D1D5DB",
-                width: "100%",
-              }}
-              value={bio}
-              onChangeText={setBio}
-              numberOfLines={4}
-              textAlignVertical="top"
-            />
-
-            <View>
-              {loading ? (
-                <View
+            >
+              <Pressable
+                style={{
+                  borderRadius: 5,
+                  width: "50%",
+                  backgroundColor: colors.primary,
+                }}
+                onPress={() => {
+                  setUpdateImage(true);
+                }}
+              >
+                <RNText
+                  font={"M-Medium"}
                   style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Loading size={hp(6.5)} />
-                </View>
-              ) : (
-                <Pressable
-                  style={{
+                    fontSize: hp(1.8),
+                    textAlign: "center",
+                    color: "#000",
+                    padding: 7,
                     borderRadius: 5,
-                    backgroundColor: "#3B82F6",
                   }}
-                  onPress={handleUpdateProfile}
                 >
-                  <RNText
-                    style={{
-                      fontSize: hp(2.2),
-                      color: "#fff",
-                      padding: 7,
-                      borderRadius: 5,
-                      textAlign: "center",
-                    }}
-                  >
-                    Save
-                  </RNText>
-                </Pressable>
-              )}
+                  Update Image
+                </RNText>
+              </Pressable>
             </View>
-          </View> */}
+          </>
+        ) : (
+          <View
+            style={{
+              minHeight: hp(35),
+              paddingBottom: 20,
+            }}
+          >
+            <ProfileImage id={user.id} upateProfile={upateProfile} />
+          </View>
+        )}
+
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginVertical: 16,
+          }}
+        >
+          <List.Section
+            style={{
+              width: widthPercentageToDP(90),
+              gap: 8,
+            }}
+          >
+            {user?.premiumSubscription && (
+              <List.Item
+                style={{
+                  backgroundColor: colors.card,
+                  paddingHorizontal: 16,
+                  borderRadius: 8,
+                }}
+                title="Premium Subscription"
+                titleStyle={{
+                  fontFamily: "M-Bold",
+                  textTransform: "capitalize",
+                }}
+                //days left for subscription user?.premiumExpiration:{"nanoseconds": 401000000, "seconds": 1744391137}
+                description={
+                  user?.premiumExpiration
+                    ? `days left: ${Math.floor(
+                        (user?.premiumExpiration.seconds - Date.now() / 1000) /
+                          (60 * 60 * 24)
+                      )}`
+                    : "No subscription"
+                }
+                descriptionStyle={{
+                  textTransform: "capitalize",
+                  fontFamily: "M-Medium",
+                }}
+                left={() => <List.Icon icon="star-circle-outline" />}
+              />
+            )}
+            <List.Item
+              style={{
+                backgroundColor: colors.card,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
+              // onPress={() => {
+              //   router.push("updateProfile");
+              // }}
+              title="Email"
+              titleStyle={{
+                fontFamily: "M-Bold",
+                textTransform: "capitalize",
+              }}
+              description={user?.email}
+              descriptionStyle={{
+                textTransform: "capitalize",
+                fontFamily: "M-Medium",
+              }}
+              left={() => <List.Icon icon="email" />}
+            />
+            <List.Item
+              style={{
+                backgroundColor: colors.card,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
+              title="Full Name"
+              titleStyle={{
+                fontFamily: "M-Bold",
+                textTransform: "capitalize",
+              }}
+              description={user?.name}
+              descriptionStyle={{
+                textTransform: "capitalize",
+                fontFamily: "M-Medium",
+              }}
+              left={() => <List.Icon icon="account" />}
+            />
+            {/* switch mode  */}
+
+            <List.Item
+              style={{
+                backgroundColor: colors.card,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
+              onPress={() => {
+                toggleTheme();
+              }}
+              title="Switch Mode"
+              titleStyle={{
+                fontFamily: "M-Bold",
+                textTransform: "capitalize",
+              }}
+              description={
+                isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+              }
+              descriptionStyle={{
+                textTransform: "capitalize",
+                fontFamily: "M-Medium",
+              }}
+              left={() => (
+                <List.Icon
+                  icon={isDarkMode ? "weather-sunny" : "weather-night"}
+                />
+              )}
+            />
+            <List.Item
+              style={{
+                backgroundColor: colors.card,
+                paddingHorizontal: 16,
+                borderRadius: 8,
+              }}
+              onPress={() => {
+                //logout
+                Alert.alert("Logout", "Are you sure you want to logout?", [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel",
+                  },
+                  {
+                    text: "Logout",
+                    onPress: () => {
+                      logout();
+                    },
+                  },
+                ]);
+              }}
+              title="Logout"
+              titleStyle={{
+                fontFamily: "M-Bold",
+              }}
+              description={"Logout from your account"}
+              descriptionStyle={{
+                textTransform: "capitalize",
+                fontFamily: "M-Medium",
+              }}
+              left={() => <List.Icon icon="logout" />}
+            />
+          </List.Section>
+        </View>
+
+        {!user?.premiumSubscription && (
+          <View
+            style={{
+              padding: 8,
+              backgroundColor: colors.card,
+              borderRadius: 16,
+              paddingVertical: 16,
+              borderWidth: 1.5,
+              borderColor: colors.gold,
+            }}
+          >
+            <RNText
+              font={"M-Medium"}
+              style={{
+                color: colors.text,
+                fontSize: 18,
+                textAlign: "center",
+                marginBottom: 16,
+              }}
+            >
+              Upgrade to premium to join any community
+            </RNText>
+
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: colors.gold,
+                padding: 16,
+                borderRadius: 16,
+                borderWidth: 1,
+                borderRadius: 16,
+                padding: 16,
+                marginVertical: 16,
+              }}
+              onPress={() => {
+                Alert.alert(
+                  "Green Circle Life",
+                  "Are you sure you want to upgrade to premium?",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                    {
+                      text: "Upgrade",
+                      onPress: () => {
+                        // becomePremiumUser(user?.id);
+                      },
+                    },
+                  ]
+                );
+              }}
+            >
+              <RNText
+                font={"M-Bold"}
+                style={{ color: colors.black, fontSize: 18 }}
+              >
+                Try Premium for $0
+              </RNText>
+            </TouchableOpacity>
+
+            <RNText
+              font={"M-Regular"}
+              style={{
+                color: colors.text,
+                fontSize: 14,
+                textAlign: "center",
+                marginBottom: 16,
+              }}
+            >
+              14 days free trial then $2.99/month
+            </RNText>
+          </View>
+        )}
       </View>
     </CustomKeyboardView>
   );

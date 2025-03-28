@@ -36,7 +36,52 @@ export default AppLayout = () => {
                 }}
                 onPress={() => {
                   console.log("clicked");
-                  
+
+                  Alert.alert("Logout", "Are you sure you want to logout?", [
+                    {
+                      text: "No",
+                      onPress: () => {},
+                    },
+                    {
+                      text: "Yes",
+                      onPress: () => {
+                        logout();
+                      },
+                    },
+                  ]);
+                }}
+              >
+                <MaterialIcons name="logout" size={24} color={colors.text} />
+              </TouchableOpacity>
+            </View>
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="updateProfile"
+        options={{
+          headerTitle: "Edit Profile",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+          headerTintColor: colors.text,
+          headerTitleStyle: {
+            fontFamily: "M-Bold",
+            fontSize: 26,
+            alignSelf: "center",
+            backgroundColor: "#000",
+          },
+          headerRight: () => (
+            <View style={{ paddingRight: 15 }}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                }}
+                onPress={() => {
+                  console.log("clicked");
+
                   Alert.alert("Logout", "Are you sure you want to logout?", [
                     {
                       text: "No",
@@ -70,6 +115,24 @@ export default AppLayout = () => {
         name="action"
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="share"
+        options={{
+          headerTitle: "",
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+
+          headerTintColor: colors.text,
+          headerTitleStyle: {
+            fontFamily: "M-Bold",
+            fontSize: 26,
+            alignSelf: "center",
+            backgroundColor: "#000",
+          },
         }}
       />
       <Stack.Screen

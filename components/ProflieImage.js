@@ -64,6 +64,7 @@ export default class ProfileImage extends React.Component {
             backgroundColor: "#000",
             borderRadius: 5,
             width: "100%",
+            marginBottom: 10,
           }}
         >
           <RNText

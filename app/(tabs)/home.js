@@ -4,6 +4,8 @@ import Insights from "../../components/App/Insights";
 import EcoProgress from "../../components/App/EcoProgress";
 import DailyTask from "../../components/App/DailyTask";
 import MinimalLayout from "../../components/Layout/MinimalLayout";
+import { Button } from "react-native-paper";
+import { router } from "expo-router";
 
 const Home = () => {
   return (
