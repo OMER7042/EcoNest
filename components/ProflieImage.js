@@ -58,47 +58,51 @@ export default class ProfileImage extends React.Component {
         {/* {this._maybeRenderImage()} */}
         {this._maybeRenderUploadingOverlay()}
 
-        <Pressable
-          onPress={this._pickImage}
-          style={{
-            backgroundColor: "#000",
-            borderRadius: 5,
-            width: "100%",
-            marginBottom: 10,
-          }}
-        >
-          <RNText
-            style={{
-              fontSize: hp(2.2),
-              color: "#fff",
-              textAlign: "center",
-              padding: 7,
-              borderRadius: 5,
-            }}
-          >
-            Pick an image from camera roll
-          </RNText>
-        </Pressable>
-        <Pressable
-          onPress={this._takePhoto}
-          style={{
-            borderRadius: 5,
-            width: "100%",
-            backgroundColor: "#3B82F6",
-          }}
-        >
-          <RNText
-            style={{
-              fontSize: hp(2.2),
-              color: "#fff",
-              textAlign: "center",
-              padding: 7,
-              borderRadius: 5,
-            }}
-          >
-            Take a photo
-          </RNText>
-        </Pressable>
+        {this.state.uploading === false ? (
+          <>
+            <Pressable
+              onPress={this._pickImage}
+              style={{
+                backgroundColor: "#000",
+                borderRadius: 5,
+                width: "100%",
+                marginBottom: 10,
+              }}
+            >
+              <RNText
+                style={{
+                  fontSize: hp(2.2),
+                  color: "#fff",
+                  textAlign: "center",
+                  padding: 7,
+                  borderRadius: 5,
+                }}
+              >
+                Pick an image from camera roll
+              </RNText>
+            </Pressable>
+            <Pressable
+              onPress={this._takePhoto}
+              style={{
+                borderRadius: 5,
+                width: "100%",
+                backgroundColor: "#3B82F6",
+              }}
+            >
+              <RNText
+                style={{
+                  fontSize: hp(2.2),
+                  color: "#fff",
+                  textAlign: "center",
+                  padding: 7,
+                  borderRadius: 5,
+                }}
+              >
+                Take a photo
+              </RNText>
+            </Pressable>
+          </>
+        ) : null}
       </View>
     );
   }

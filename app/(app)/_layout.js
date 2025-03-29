@@ -28,33 +28,7 @@ export default AppLayout = () => {
             alignSelf: "center",
             backgroundColor: "#000",
           },
-          headerRight: () => (
-            <View style={{ paddingRight: 15 }}>
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                }}
-                onPress={() => {
-                  console.log("clicked");
-
-                  Alert.alert("Logout", "Are you sure you want to logout?", [
-                    {
-                      text: "No",
-                      onPress: () => {},
-                    },
-                    {
-                      text: "Yes",
-                      onPress: () => {
-                        logout();
-                      },
-                    },
-                  ]);
-                }}
-              >
-                <MaterialIcons name="logout" size={24} color={colors.text} />
-              </TouchableOpacity>
-            </View>
-          ),
+     
         }}
       />
 
@@ -73,33 +47,7 @@ export default AppLayout = () => {
             alignSelf: "center",
             backgroundColor: "#000",
           },
-          headerRight: () => (
-            <View style={{ paddingRight: 15 }}>
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                }}
-                onPress={() => {
-                  console.log("clicked");
-
-                  Alert.alert("Logout", "Are you sure you want to logout?", [
-                    {
-                      text: "No",
-                      onPress: () => {},
-                    },
-                    {
-                      text: "Yes",
-                      onPress: () => {
-                        logout();
-                      },
-                    },
-                  ]);
-                }}
-              >
-                <MaterialIcons name="logout" size={24} color={colors.text} />
-              </TouchableOpacity>
-            </View>
-          ),
+        
         }}
       />
       <Stack.Screen
@@ -120,19 +68,7 @@ export default AppLayout = () => {
       <Stack.Screen
         name="share"
         options={{
-          headerTitle: "",
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
-
-          headerTintColor: colors.text,
-          headerTitleStyle: {
-            fontFamily: "M-Bold",
-            fontSize: 26,
-            alignSelf: "center",
-            backgroundColor: "#000",
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -157,18 +93,7 @@ export default AppLayout = () => {
             alignSelf: "center",
             backgroundColor: "#000",
           },
-          headerRight: () => (
-            <Pressable
-              style={{
-                flexDirection: "row",
-              }}
-              onPress={() => {
-                router.push("/home");
-              }}
-            >
-              <Entypo name="home" size={24} color={colors.text} />
-            </Pressable>
-          ),
+    
         }}
       />
       <Stack.Screen

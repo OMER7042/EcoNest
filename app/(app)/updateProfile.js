@@ -1,10 +1,9 @@
-import { View, Platform, Pressable, Alert } from "react-native";
+import { View, Pressable, Alert } from "react-native";
 import React, { useContext, useState } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 
 import { blurhash } from "../../constants";
@@ -13,59 +12,51 @@ import { useRouter } from "expo-router";
 import { AuthContext } from "../../context/authcontext";
 import ProfileImage from "../../components/ProflieImage";
 import RNText from "../../components/RNText";
-import { updateProflie } from "../../constants/api";
+import { saveProfileUrl, updateProflie } from "../../constants/api";
 import { TextInput, useTheme } from "react-native-paper";
 import RNTextInput from "../../components/RNTextInput";
 import Loading from "../../components/Loading";
 
-
 const UpdateProfile = () => {
-  const { top } = useSafeAreaInsets();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [updateImage, setUpdateImage] = useState(false);
 
-  const upateProfile = (url) => {
+  const upateProfile = async (url) => {
+    await saveProfileUrl(user.id, url);
     setUpdateImage(false);
-
-    setUser((user) => {
-      return { ...user, profileUrl: url };
-    });
   };
 
   const { colors } = useTheme();
   const [name, setName] = useState(user?.name);
 
-  const handleUpdateProfile = async () => {
-    if (!name || !phone || !bio || !gender) {
-      Alert.alert("Update Profile", "All fields are required");
+  const updateProfile = async () => {
+    if (name.length < 3) {
+      Alert.alert("Please enter a valid name");
       return;
-    } else {
-      setLoading(true);
-      await updateProflie(user.id, {
-        name,
-        phone,
-        bio,
-        gender,
-      });
-      setUser((user) => {
-        return { ...user, name, phone, bio, gender };
-      });
+    }
+
+    if (name === user?.name) {
+      Alert.alert("Please enter a new name to update your profile");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await updateProflie(user.id, { name });
+      if (response.success) {
+        Alert.alert("Profile updated successfully");
+        router.back();
+      } else {
+        Alert.alert("Error updating profile", response.message);
+      }
+    } catch (error) {
+      Alert.alert("Error updating profile", error.message);
+    } finally {
       setLoading(false);
-      Alert.alert("Profile Updated", "Profile updated successfully", [
-        {
-          text: "OK",
-          onPress: () => {
-            router.back();
-          },
-        },
-      ]);
     }
   };
-  const [show, setShow] = useState(false);
-
 
   return (
     <CustomKeyboardView>
@@ -77,7 +68,6 @@ const UpdateProfile = () => {
           height: hp(90),
         }}
       >
- 
         {updateImage === false ? (
           <>
             <View
@@ -116,9 +106,9 @@ const UpdateProfile = () => {
                   width: "50%",
                   backgroundColor: colors.primary,
                 }}
-                // onPress={() => {
-                //   setUpdateImage(true);
-                // }}
+                onPress={() => {
+                  setUpdateImage(true);
+                }}
               >
                 <RNText
                   font={"M-Medium"}
@@ -204,13 +194,13 @@ const UpdateProfile = () => {
                 shadowRadius: 3.84,
                 elevation: 5,
               }}
-              // onPress={handleSignup}
+              onPress={updateProfile}
             >
               <RNText
                 font={"M-Bold"}
                 style={{
                   fontSize: hp(2.2),
-                  color: "#fff",
+                  color: colors.background,
                   textAlign: "center",
                   padding: 7,
                 }}
@@ -221,8 +211,6 @@ const UpdateProfile = () => {
           )}
         </View>
       </View>
-
-    
     </CustomKeyboardView>
   );
 };

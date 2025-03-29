@@ -24,7 +24,7 @@ const Challenge = () => {
   const { top } = useSafeAreaInsets();
   const { colors } = useTheme();
   const { user } = useContext(AuthContext);
-  const isDone = user?.challenges.includes(id.toString());
+  const isDone = user?.challenges.includes(id?.toString());
   const [loading, setLoading] = useState(false);
 
   const handleChallenge = async () => {

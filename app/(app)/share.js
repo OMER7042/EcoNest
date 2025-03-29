@@ -9,7 +9,7 @@ import RNText from "../../components/RNText";
 import { ECO_IMG_URL, POINTS_IMG_URL } from "../../constants/constants";
 import { Image } from "expo-image";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-
+import LogoImg from "../../assets/app/logo.png";
 const Share = () => {
   const { img, points, saved, successTitle, successSubtitle } =
     useLocalSearchParams();
@@ -58,23 +58,41 @@ const Share = () => {
         backgroundColor: colors.background,
       }}
     >
-      <Pressable
-        style={{
-          flexDirection: "row",
-          position: "absolute",
-            top: 50,
-            right: 20,
+      <View style={{ 
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        padding: 10,
+       }}>
+        <Pressable
+          style={{
+            flexDirection: "row",
             padding: 10,
             borderRadius: 10,
             backgroundColor: colors.card,
-            
-        }}
-        onPress={() => {
-          router.push("/home");
-        }}
-      >
-        <Entypo name="home" size={24} color={colors.text} />
-      </Pressable>
+          }}
+          onPress={() => {
+            router.back();
+          }}
+        >
+          <AntDesign name="arrowleft" size={24} color={colors.text} />
+        </Pressable>
+        <Pressable
+          style={{
+            flexDirection: "row",
+            padding: 10,
+            borderRadius: 10,
+            backgroundColor: colors.card,
+          }}
+          onPress={() => {
+            router.push("/home");
+          }}
+        >
+          <Entypo name="home" size={24} color={colors.text} />
+        </Pressable>
+      </View>
+
       <View
         ref={viewRef}
         collapsable={false}
@@ -194,6 +212,26 @@ const Share = () => {
               </RNText>
             </View>
           </View>
+        </View>
+        <View
+          style={{
+            marginTop: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image source={LogoImg} style={{ height: 42, aspectRatio: 1 }} />
+          <RNText
+            style={{
+              fontSize: 16,
+              color: colors.text,
+            }}
+            font={"M-Medium"}
+          >
+            {" "}
+            Powered by EcoNest
+          </RNText>
         </View>
       </View>
 
