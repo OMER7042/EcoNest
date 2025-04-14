@@ -17,12 +17,19 @@ import {
   joinCommunity,
   leaveCommunity,
 } from "../../constants/api";
-import TargetImg from "../../assets/app/target.png";  
+import TargetImg from "../../assets/app/target.png";
 const CommunityProgress = () => {
   const { colors } = useTheme();
   const { user, communityStats } = useContext(AuthContext);
 
-
+  const isPremiumUser = () => {
+    if (user?.premiumSubscription) {
+      const currentDate = new Date();
+      const expirationDate = new Date(user?.premiumExpiration?.seconds * 1000);
+      return expirationDate > currentDate;
+    }
+    return false;
+  };
   return (
     <View
       style={{
@@ -32,7 +39,9 @@ const CommunityProgress = () => {
     >
       <>
         {user?.isPartOfCommunity ? (
-          <ProgressBar isMain user={user} communityStats={communityStats} />
+          isPremiumUser() && (
+            <ProgressBar isMain user={user} communityStats={communityStats} />
+          )
         ) : (
           <View
             style={{
@@ -91,7 +100,7 @@ const CommunityProgress = () => {
               <View>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: user?.premiumSubscription
+                    backgroundColor: isPremiumUser()
                       ? colors.green
                       : colors.mediumGray,
                     borderRadius: 5,
@@ -107,7 +116,7 @@ const CommunityProgress = () => {
                     paddingHorizontal: 14,
                     paddingVertical: 5,
                   }}
-                  disabled={!user?.premiumSubscription}
+                  disabled={!isPremiumUser()}
                   onPress={() => {
                     Alert.alert(
                       "Green Circle Life",
@@ -222,13 +231,108 @@ const CommunityProgress = () => {
           </RNText>
         </View>
       )}
+
+      {user?.premiumSubscription && !isPremiumUser() && (
+        <>
+          <RNText
+            font={"M-Medium"}
+            style={{
+              color: colors.text,
+              fontSize: 18,
+              textAlign: "center",
+              marginBottom: 16,
+              marginTop: heightPercentageToDP(5),
+
+            }}
+          >
+            {/* Community is a premium feature to continue useing take primeum tel luser */}
+            Upgrade to premium to join any community
+          </RNText>
+          <View
+            style={{
+              padding: 8,
+              backgroundColor: colors.card,
+              borderRadius: 16,
+              paddingVertical: 16,
+              borderWidth: 1.5,
+              borderColor: colors.gold,
+              marginBottom: 36,
+            }}
+          >
+            <RNText
+              font={"M-Medium"}
+              style={{
+                color: colors.text,
+                fontSize: 18,
+                textAlign: "center",
+                marginBottom: 16,
+              }}
+            >
+              Your subscription has expired
+            </RNText>
+
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: colors.gold,
+                padding: 16,
+                borderRadius: 16,
+                borderWidth: 1,
+                borderRadius: 16,
+                padding: 16,
+                marginVertical: 16,
+              }}
+              onPress={() => {
+                Alert.alert(
+                  "Green Circle Life",
+                  "Are you sure you want to upgrade to premium?",
+                  [
+                    {
+                      text: "Cancel",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                    {
+                      text: "Upgrade",
+                      onPress: () => {
+                        becomePremiumUser(user?.id);
+                      },
+                    },
+                  ]
+                );
+              }}
+            >
+              <RNText
+                font={"M-Bold"}
+                style={{ color: colors.black, fontSize: 18 }}
+              >
+                Upgrade to Premium
+              </RNText>
+            </TouchableOpacity>
+
+            <RNText
+              font={"M-Regular"}
+              style={{
+                color: colors.text,
+                fontSize: 14,
+                textAlign: "center",
+                marginBottom: 16,
+              }}
+            >
+              You are eligible for a free trial of 1 month then $2.99/month
+            </RNText>
+          </View>
+        </>
+      )}
     </View>
   );
 };
 
 export default CommunityProgress;
 
-const ProgressBar = ({ isMain, user,communityStats }) => {
+const ProgressBar = ({ isMain, user, communityStats }) => {
   const { colors } = useTheme();
   const [showAllLines, setShowAllLines] = useState(false);
 
@@ -258,7 +362,7 @@ const ProgressBar = ({ isMain, user,communityStats }) => {
             source={
               "https://plus.unsplash.com/premium_photo-1681965550198-c1c039421905?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             }
-            style={{ width: 60, height: 60, marginRight: 10 , borderRadius: 8}}
+            style={{ width: 60, height: 60, marginRight: 10, borderRadius: 8 }}
             contentFit="cover"
           />
           <View>
@@ -284,13 +388,13 @@ const ProgressBar = ({ isMain, user,communityStats }) => {
                   borderRadius: 20,
                   textAlign: "center",
                   borderWidth: 1,
-                  borderColor:  colors.primary,
+                  borderColor: colors.primary,
                   marginVertical: 5,
                   width: 80,
                   padding: 2,
                 }}
               >
-               Public 
+                Public
               </RNText>
 
               <TouchableOpacity
@@ -524,7 +628,7 @@ const ProgressBar = ({ isMain, user,communityStats }) => {
                 color: colors.text,
               }}
             >
-             Actions Completed
+              Actions Completed
             </RNText>
           </View>
         </View>

@@ -14,18 +14,26 @@ import {
 import { Image } from "expo-image";
 
 import { blurhash } from "../../constants";
-import CustomKeyboardView from "../../components/CustomKeybordView";
 import { AuthContext } from "../../context/authcontext";
-import ProfileImage from "../../components/ProflieImage";
 import RNText from "../../components/RNText";
-import { saveProfileUrl } from "../../constants/api";
 import { List, useTheme } from "react-native-paper";
 import { router } from "expo-router";
+import { becomePremiumUser } from "../../constants/api";
 
 const Profile = () => {
   const { user, logout, isDarkMode, toggleTheme } = useContext(AuthContext);
 
   const { colors } = useTheme();
+
+  // check if user has premium subscription and if it is expired or not based on it send true or false
+  const isPremiumUser = () => {
+    if (user?.premiumSubscription) {
+      const currentDate = new Date();
+      const expirationDate = new Date(user?.premiumExpiration?.seconds * 1000);
+      return expirationDate > currentDate;
+    }
+    return false;
+  };
 
   return (
     <ScrollView
@@ -97,12 +105,12 @@ const Profile = () => {
               }}
               //days left for subscription user?.premiumExpiration:{"nanoseconds": 401000000, "seconds": 1744391137}
               description={
-                user?.premiumExpiration
+                isPremiumUser()
                   ? `Days left: ${Math.floor(
                       (user?.premiumExpiration.seconds - Date.now() / 1000) /
                         (60 * 60 * 24)
                     )}`
-                  : "No subscription"
+                  : "Expired"
               }
               descriptionStyle={{
                 fontFamily: "M-Medium",
@@ -285,7 +293,7 @@ const Profile = () => {
                   {
                     text: "Upgrade",
                     onPress: () => {
-                      // becomePremiumUser(user?.id);
+                      becomePremiumUser(user?.id);
                     },
                   },
                 ]
@@ -309,7 +317,88 @@ const Profile = () => {
               marginBottom: 16,
             }}
           >
-            14 days free trial then $2.99/month
+            1 month free trial then $2.99/month
+          </RNText>
+        </View>
+      )}
+
+      {/* if user has expired his subscription ask to pay */}
+
+      {user?.premiumSubscription && !isPremiumUser() && (
+        <View
+          style={{
+            padding: 8,
+            backgroundColor: colors.card,
+            borderRadius: 16,
+            paddingVertical: 16,
+            borderWidth: 1.5,
+            borderColor: colors.gold,
+            marginBottom: 36,
+          }}
+        >
+          <RNText
+            font={"M-Medium"}
+            style={{
+              color: colors.text,
+              fontSize: 18,
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            Your subscription has expired
+          </RNText>
+
+          <TouchableOpacity
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: colors.gold,
+              padding: 16,
+              borderRadius: 16,
+              borderWidth: 1,
+              borderRadius: 16,
+              padding: 16,
+              marginVertical: 16,
+            }}
+            onPress={() => {
+              Alert.alert(
+                "Green Circle Life",
+                "Are you sure you want to upgrade to premium?",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel",
+                  },
+                  {
+                    text: "Upgrade",
+                    onPress: () => {
+                      becomePremiumUser(user?.id);
+                    },
+                  },
+                ]
+              );
+            }}
+          >
+            <RNText
+              font={"M-Bold"}
+              style={{ color: colors.black, fontSize: 18 }}
+            >
+              Upgrade to Premium
+            </RNText>
+          </TouchableOpacity>
+
+          <RNText
+            font={"M-Regular"}
+            style={{
+              color: colors.text,
+              fontSize: 14,
+              textAlign: "center",
+              marginBottom: 16,
+            }}
+          >
+            You are eligible for a free trial of 1 month then $2.99/month
           </RNText>
         </View>
       )}

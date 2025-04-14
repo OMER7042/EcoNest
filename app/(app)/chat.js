@@ -21,6 +21,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Image } from "expo-image";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import RNTextInput from "../../components/RNTextInput";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 const DiscussionScreen = () => {
   const { messages, user } = useContext(AuthContext);
@@ -37,7 +38,7 @@ const DiscussionScreen = () => {
       previousMessage.user?._id !== currentMessage.user?._id;
 
     return (
-      <View style={{ marginBottom: 5 }}>
+      <View >
         {isLastMessageByUser && currentMessage.user._id !== user?.id && (
           <RNText
             font={"M-Medium"}
@@ -60,7 +61,7 @@ const DiscussionScreen = () => {
                 currentMessage?.image || currentMessage?.video
                   ? colors.background
                   : colors.purple,
-             // if image message, set the border color to white
+              // if image message, set the border color to white
               borderColor:
                 currentMessage?.image || currentMessage?.video
                   ? colors.white
@@ -69,17 +70,15 @@ const DiscussionScreen = () => {
             },
             left: {
               backgroundColor:
-              currentMessage?.image || currentMessage?.video
-                ? colors.background
-                : colors.card,
-           // if image message, set the border color to white
-            borderColor:
-              currentMessage?.image || currentMessage?.video
-                ? colors.white
-                : colors.card,
-            borderWidth: 1,
-
-
+                currentMessage?.image || currentMessage?.video
+                  ? colors.background
+                  : colors.card,
+              // if image message, set the border color to white
+              borderColor:
+                currentMessage?.image || currentMessage?.video
+                  ? colors.white
+                  : colors.card,
+              borderWidth: 1,
             },
           }}
           textStyle={{
@@ -105,6 +104,22 @@ const DiscussionScreen = () => {
     );
   };
 
+  const renderMessageImage = (props) => {
+    const { currentMessage } = props;
+  
+    return (
+      <Image
+        source={{ uri: currentMessage.image }}
+        style={{
+          width: 200, // or '100%' if inside a container
+          height: 200,
+          borderRadius: 10,
+          resizeMode: 'cover',
+          margin: 5
+        }}
+      />
+    );
+  };
   const onSend = useCallback(async (newMessages = []) => {
     const { _id, text, createdAt, user } = newMessages[0];
 
@@ -136,9 +151,7 @@ const DiscussionScreen = () => {
         {...props}
         containerStyle={{
           backgroundColor: colors.card, // 🔥 Background color for dark theme
-          borderTopWidth: 1,
           borderTopColor: colors.background, // Darker border color
-          padding: 5,
           color: colors.text,
         }}
         primaryStyle={{ alignItems: "center" }}
@@ -195,19 +208,18 @@ const DiscussionScreen = () => {
         backgroundColor: colors.background,
       }}
     >
-      <Portal>
-        <Modal
-          visible={image !== null}
-          onDismiss={() => {
-            setImage(null);
-            setCaption("");
-          }}
-          contentContainerStyle={{
-            backgroundColor: colors.background,
-            flex: 1,
+      {image !== null && (
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             justifyContent: "center",
             alignItems: "center",
-            padding: 20,
+            zIndex: 1000,
+            backgroundColor: colors.background,
           }}
         >
           <View
@@ -223,7 +235,6 @@ const DiscussionScreen = () => {
               elevation: 8,
             }}
           >
-            {/* Close Button */}
             <TouchableOpacity
               onPress={() => {
                 setImage(null);
@@ -310,8 +321,8 @@ const DiscussionScreen = () => {
               )}
             </TouchableOpacity>
           </View>
-        </Modal>
-      </Portal>
+        </View>
+      )}
 
       <GiftedChat
         messages={messages}
@@ -326,6 +337,8 @@ const DiscussionScreen = () => {
         scrollToBottom
         renderInputToolbar={renderInputToolbar}
         renderSend={renderSend}
+        
+        
         renderActions={() => (
           <TouchableOpacity onPress={pickImage} style={{ marginLeft: 10 }}>
             <Image

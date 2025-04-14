@@ -127,7 +127,7 @@ export const becomePremiumUser = async (userId) => {
   try {
     const userRef = doc(db, "users", userId);
     const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 14); // Add 14 days
+    expirationDate.setDate(expirationDate.getDate() + 30); // Add 30 days
 
     await updateDoc(userRef, {
       premiumSubscription: true,
@@ -135,7 +135,7 @@ export const becomePremiumUser = async (userId) => {
     });
     Alert.alert(
       "Congratulations!",
-      "You are now a premium member for 14 days!"
+      "You are now a premium member for 30 days!"
     );
   } catch (error) {
     console.error("Error updating premium status:", error);
