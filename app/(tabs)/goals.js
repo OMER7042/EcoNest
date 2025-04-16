@@ -12,6 +12,7 @@ import Colors from "../../constants/Colors";
 import { AuthContext } from "../../context/authcontext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import PointsImage from "../../assets/app/goals.png";
+import GeminiImage from "../../assets/app/geminibrain2.png";
 import {
   addGoalsToUser,
   clearUserGoals,
@@ -23,7 +24,6 @@ const Goals = () => {
   const { user } = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = useState(false);
-
 
   const isEligible = user?.actions.length > 0;
 
@@ -71,6 +71,18 @@ const Goals = () => {
           style={{
             width: widthPercentageToDP(80),
             aspectRatio: 1,
+            marginBottom: -6,
+          }}
+          contentFit="cover"
+        />
+        <Image
+          source={GeminiImage}
+          style={{
+            width: widthPercentageToDP(67),
+            aspectRatio: 4,
+            borderRadius: 15, // ← rounded corners
+            marginTop: 2, // ← space from the top (in dp units)
+            marginBottom: 5,
           }}
           contentFit="cover"
         />
@@ -146,7 +158,12 @@ const Goals = () => {
                   name="checkmark-circle"
                   size={28}
                   color={Colors.purple}
-                  style={{ position: "absolute", top: 10, right: 6 , zIndex:999}}
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 6,
+                    zIndex: 999,
+                  }}
                 />
               )}
               <Image
