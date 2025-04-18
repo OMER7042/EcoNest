@@ -6,7 +6,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db, GEMINAI_KEY } from "../firebase";
 import { Alert } from "react-native";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
@@ -186,7 +186,7 @@ export const getTodayDate = () => new Date().toISOString().split("T")[0];
 // services/getSmartGoalsFromGemini.js
 
 // Replace with your actual Gemini API key
-const API_KEY = "AIzaSyATmXR9fQQz7euoaznxrd9N_QDmKTxINcI";
+const API_KEY = GEMINAI_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // The actual function to call Gemini
@@ -244,7 +244,7 @@ export const addGoalsToUser = async (userId, goals) => {
     const goalsWithStatus = goals.map((goal) => ({
       ...goal,
       status: false, // or "in-progress", if you want more granularity
-      img: "https://firebasestorage.googleapis.com/v0/b/econest-app.firebasestorage.app/o/goal.png?alt=media&token=189d6084-010e-464b-921f-4548b9646984",
+      img: "https://thumbs.dreamstime.com/b/sustainable-goal-wooden-target-icon-grass-background-representing-eco-friendly-achievement-364866012.jpg",
     }));
 
     await updateDoc(userRef, {

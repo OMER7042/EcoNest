@@ -25,7 +25,7 @@ const Goals = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const isEligible = user?.actions.length > 0;
+  const isEligible = user?.actions.length > 4;
 
   const userGoals = user?.goals || [];
 

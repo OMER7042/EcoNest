@@ -67,9 +67,9 @@ const ForgotPasswordScreen = () => {
       <TouchableOpacity
         style={{
           position: "absolute",
-          zIndex: 1,
           left: hp(2),
           top: wp(16),
+          backgroundColor: Colors.lightGray,
           borderRadius: 50,
           padding: 5,
         }}
@@ -79,6 +79,7 @@ const ForgotPasswordScreen = () => {
       >
         <Ionicons name="arrow-back-outline" size={30} color="black" />
       </TouchableOpacity>
+
       <View
         style={{
           flex: 1,
@@ -174,7 +175,7 @@ const ForgotPasswordScreen = () => {
                     style={{
                       fontSize: hp(2.2),
                       textAlign: "center",
-                      color:colors.background,
+                      color: colors.background,
                       padding: 7,
                       borderRadius: 5,
                     }}

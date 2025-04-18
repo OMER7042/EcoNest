@@ -1,8 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
 import {
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from "react-native";
@@ -13,14 +10,7 @@ const ios = Platform.OS === "ios";
 const CustomKeyboardView = ({ children }) => {
   const {colors} = useTheme();
   return (
-    <KeyboardAvoidingView
-      behavior={ios ? "padding" : "height"}
-      style={{ flex: 1 }}
-      //allow to tclick buttons when keyboard is open
-    
-      
 
->
       <ScrollView
         style={{ flex: 1 ,
           backgroundColor: colors.background
@@ -31,7 +21,6 @@ const CustomKeyboardView = ({ children }) => {
       >
         {children}
       </ScrollView>
-    </KeyboardAvoidingView>
   );
 };
 
