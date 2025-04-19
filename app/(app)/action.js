@@ -36,7 +36,7 @@ import { AuthContext } from "../../context/authcontext";
 // const ios = Platform.OS === "ios";
 
 const Action = () => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { top } = useSafeAreaInsets();
   const { title, subtitle, id } = useGlobalSearchParams();
   const [savedCO2, setSavedCO2] = useState(0);
@@ -560,6 +560,7 @@ const Action = () => {
 
   const handleLogAction = async () => {
     const saved = calculateCO2Savings();
+
     const points = Math.round(saved * 2);
 
     try {
@@ -793,6 +794,8 @@ const Action = () => {
                 borderColor: Colors.gray,
               },
             ]}
+            disabled={isDisabled}
+            activeOpacity={0.8}
             onPress={handleLogAction}
           >
             <RNText
