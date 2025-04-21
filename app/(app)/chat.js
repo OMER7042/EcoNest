@@ -38,7 +38,7 @@ const DiscussionScreen = () => {
       previousMessage.user?._id !== currentMessage.user?._id;
 
     return (
-      <View >
+      <View>
         {isLastMessageByUser && currentMessage.user._id !== user?.id && (
           <RNText
             font={"M-Medium"}
@@ -54,49 +54,108 @@ const DiscussionScreen = () => {
         )}
         <Bubble
           {...props}
+          // wrapperStyle={{
+          //   right: {
+          //     //if its image message, set the background color to white
+          //     backgroundColor:
+          //       currentMessage?.image || currentMessage?.video
+          //         ? colors.background
+          //         : colors.purple,
+          //     // if image message, set the border color to white
+          //     borderColor:
+          //       currentMessage?.image || currentMessage?.video
+          //         ? colors.white // Gives white border in both modes so changed it to dynamic
+          //         : colors.purple,
+          //     borderWidth: 1,
+          //   },
+          //   left: {
+          //     backgroundColor:
+          //       currentMessage?.image || currentMessage?.video
+          //         ? colors.background
+          //         : colors.card,
+          //     // if image message, set the border color to white
+          //     borderColor:
+          //       currentMessage?.image || currentMessage?.video
+          //         ? colors.white // Gives white border in both modes so changed it to dynamic
+          //         : colors.card,
+          //     borderWidth: 1,
+          //   },
+          // }}
+
+          //Fixed border color and border raidius LHS and text dynamically
           wrapperStyle={{
             right: {
-              //if its image message, set the background color to white
               backgroundColor:
                 currentMessage?.image || currentMessage?.video
                   ? colors.background
                   : colors.purple,
-              // if image message, set the border color to white
               borderColor:
                 currentMessage?.image || currentMessage?.video
-                  ? colors.white
+                  ? colors.text // 💡 match the dynamic text color
                   : colors.purple,
               borderWidth: 1,
+              // borderRadius: 16,
             },
             left: {
               backgroundColor:
                 currentMessage?.image || currentMessage?.video
                   ? colors.background
                   : colors.card,
-              // if image message, set the border color to white
               borderColor:
                 currentMessage?.image || currentMessage?.video
-                  ? colors.white
+                  ? colors.text
                   : colors.card,
               borderWidth: 1,
+              borderRadius: 16, // added border radius on LHS of border
             },
           }}
+          // textStyle={{
+          //   right: {
+          //     // color: "#fff",
+          //     fontFamily: "M-Regular",
+          //   },
+          //   left: {
+          //     // color: "#fff",
+          //     fontFamily: "M-Regular",
+          //   },
+          // }}
+
           textStyle={{
             right: {
-              color: "#fff",
+              color:
+                currentMessage?.image || currentMessage?.video
+                  ? colors.text // dynamic text color (black/white)
+                  : "#fff", // white text for purple background
               fontFamily: "M-Regular",
             },
             left: {
-              color: "#fff",
+              color:
+                currentMessage?.image || currentMessage?.video
+                  ? colors.text
+                  : "#fff",
               fontFamily: "M-Regular",
             },
           }}
+          // timeTextStyle={{
+          //   right: {
+          //     color: "#fff",
+          //   },
+          //   left: {
+          //     color: "#fff",
+          //   },
+          // }}
           timeTextStyle={{
             right: {
-              color: "#fff",
+              color:
+                currentMessage?.image || currentMessage?.video
+                  ? colors.text // match theme like caption
+                  : "#fff", // white for purple bubble
             },
             left: {
-              color: "#fff",
+              color:
+                currentMessage?.image || currentMessage?.video
+                  ? colors.text
+                  : "#fff",
             },
           }}
         />
@@ -106,7 +165,7 @@ const DiscussionScreen = () => {
 
   const renderMessageImage = (props) => {
     const { currentMessage } = props;
-  
+
     return (
       <Image
         source={{ uri: currentMessage.image }}
@@ -114,8 +173,8 @@ const DiscussionScreen = () => {
           width: 200, // or '100%' if inside a container
           height: 200,
           borderRadius: 10,
-          resizeMode: 'cover',
-          margin: 5
+          resizeMode: "cover",
+          margin: 5,
         }}
       />
     );
@@ -337,8 +396,6 @@ const DiscussionScreen = () => {
         scrollToBottom
         renderInputToolbar={renderInputToolbar}
         renderSend={renderSend}
-        
-        
         renderActions={() => (
           <TouchableOpacity onPress={pickImage} style={{ marginLeft: 10 }}>
             <Image
